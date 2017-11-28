@@ -26,9 +26,12 @@ class DataViewController: UIViewController {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.dataLabel!.text = dataObject
+        self.dataLabel.text = dataObject;
+        self.txtPrueba.text = "Mario T"
+        //self.dataLabel!.text = dataObject
     }
-
-
+    @IBOutlet weak var txtPrueba: UILabel!
+    //MARK: Properties
+    
 }
 
