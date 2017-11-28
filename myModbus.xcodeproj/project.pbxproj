@@ -16,6 +16,16 @@
 		8F8C22EF1FCE0313008647EF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F8C22ED1FCE0313008647EF /* LaunchScreen.storyboard */; };
 		8F8C22FA1FCE0313008647EF /* myModbusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C22F91FCE0313008647EF /* myModbusTests.swift */; };
 		8F8C23051FCE0313008647EF /* myModbusUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C23041FCE0313008647EF /* myModbusUITests.swift */; };
+		8F8C23181FCE1F23008647EF /* SwiftLibModbus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C23171FCE1F23008647EF /* SwiftLibModbus.swift */; };
+		8F8C232C1FCE20F4008647EF /* AUTHORS in Resources */ = {isa = PBXBuildFile; fileRef = 8F8C231B1FCE20F4008647EF /* AUTHORS */; };
+		8F8C232D1FCE20F4008647EF /* COPYING in Resources */ = {isa = PBXBuildFile; fileRef = 8F8C231D1FCE20F4008647EF /* COPYING */; };
+		8F8C232E1FCE20F4008647EF /* COPYING.LESSER in Resources */ = {isa = PBXBuildFile; fileRef = 8F8C231E1FCE20F4008647EF /* COPYING.LESSER */; };
+		8F8C232F1FCE20F4008647EF /* modbus-data.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C231F1FCE20F4008647EF /* modbus-data.c */; };
+		8F8C23301FCE20F4008647EF /* modbus-rtu.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C23221FCE20F4008647EF /* modbus-rtu.c */; };
+		8F8C23311FCE20F4008647EF /* modbus-tcp.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C23251FCE20F4008647EF /* modbus-tcp.c */; };
+		8F8C23321FCE20F4008647EF /* modbus.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C23281FCE20F4008647EF /* modbus.c */; };
+		8F8C23331FCE20F4008647EF /* NEWS in Resources */ = {isa = PBXBuildFile; fileRef = 8F8C232A1FCE20F4008647EF /* NEWS */; };
+		8F8C23341FCE20F4008647EF /* README.rst in Resources */ = {isa = PBXBuildFile; fileRef = 8F8C232B1FCE20F4008647EF /* README.rst */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +61,26 @@
 		8F8C23001FCE0313008647EF /* myModbusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = myModbusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F8C23041FCE0313008647EF /* myModbusUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myModbusUITests.swift; sourceTree = "<group>"; };
 		8F8C23061FCE0313008647EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8F8C23171FCE1F23008647EF /* SwiftLibModbus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftLibModbus.swift; sourceTree = "<group>"; };
+		8F8C23191FCE1FA6008647EF /* myModbus-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "myModbus-Bridging-Header.h"; sourceTree = "<group>"; };
+		8F8C231A1FCE20F4008647EF /* myModbus-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "myModbus-Bridging-Header.h"; sourceTree = "<group>"; };
+		8F8C231B1FCE20F4008647EF /* AUTHORS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = AUTHORS; path = Vendor/libmodbus/AUTHORS; sourceTree = "<group>"; };
+		8F8C231C1FCE20F4008647EF /* config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = config.h; path = Vendor/libmodbus/config.h; sourceTree = "<group>"; };
+		8F8C231D1FCE20F4008647EF /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = COPYING; path = Vendor/libmodbus/COPYING; sourceTree = "<group>"; };
+		8F8C231E1FCE20F4008647EF /* COPYING.LESSER */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = COPYING.LESSER; path = Vendor/libmodbus/COPYING.LESSER; sourceTree = "<group>"; };
+		8F8C231F1FCE20F4008647EF /* modbus-data.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "modbus-data.c"; path = "Vendor/libmodbus/modbus-data.c"; sourceTree = "<group>"; };
+		8F8C23201FCE20F4008647EF /* modbus-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "modbus-private.h"; path = "Vendor/libmodbus/modbus-private.h"; sourceTree = "<group>"; };
+		8F8C23211FCE20F4008647EF /* modbus-rtu-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "modbus-rtu-private.h"; path = "Vendor/libmodbus/modbus-rtu-private.h"; sourceTree = "<group>"; };
+		8F8C23221FCE20F4008647EF /* modbus-rtu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "modbus-rtu.c"; path = "Vendor/libmodbus/modbus-rtu.c"; sourceTree = "<group>"; };
+		8F8C23231FCE20F4008647EF /* modbus-rtu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "modbus-rtu.h"; path = "Vendor/libmodbus/modbus-rtu.h"; sourceTree = "<group>"; };
+		8F8C23241FCE20F4008647EF /* modbus-tcp-private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "modbus-tcp-private.h"; path = "Vendor/libmodbus/modbus-tcp-private.h"; sourceTree = "<group>"; };
+		8F8C23251FCE20F4008647EF /* modbus-tcp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = "modbus-tcp.c"; path = "Vendor/libmodbus/modbus-tcp.c"; sourceTree = "<group>"; };
+		8F8C23261FCE20F4008647EF /* modbus-tcp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "modbus-tcp.h"; path = "Vendor/libmodbus/modbus-tcp.h"; sourceTree = "<group>"; };
+		8F8C23271FCE20F4008647EF /* modbus-version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "modbus-version.h"; path = "Vendor/libmodbus/modbus-version.h"; sourceTree = "<group>"; };
+		8F8C23281FCE20F4008647EF /* modbus.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = modbus.c; path = Vendor/libmodbus/modbus.c; sourceTree = "<group>"; };
+		8F8C23291FCE20F4008647EF /* modbus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modbus.h; path = Vendor/libmodbus/modbus.h; sourceTree = "<group>"; };
+		8F8C232A1FCE20F4008647EF /* NEWS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = NEWS; path = Vendor/libmodbus/NEWS; sourceTree = "<group>"; };
+		8F8C232B1FCE20F4008647EF /* README.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.rst; path = Vendor/libmodbus/README.rst; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +131,25 @@
 		8F8C22DF1FCE0313008647EF /* myModbus */ = {
 			isa = PBXGroup;
 			children = (
+				8F8C231B1FCE20F4008647EF /* AUTHORS */,
+				8F8C231C1FCE20F4008647EF /* config.h */,
+				8F8C231D1FCE20F4008647EF /* COPYING */,
+				8F8C231E1FCE20F4008647EF /* COPYING.LESSER */,
+				8F8C231F1FCE20F4008647EF /* modbus-data.c */,
+				8F8C23201FCE20F4008647EF /* modbus-private.h */,
+				8F8C23211FCE20F4008647EF /* modbus-rtu-private.h */,
+				8F8C23221FCE20F4008647EF /* modbus-rtu.c */,
+				8F8C23231FCE20F4008647EF /* modbus-rtu.h */,
+				8F8C23241FCE20F4008647EF /* modbus-tcp-private.h */,
+				8F8C23251FCE20F4008647EF /* modbus-tcp.c */,
+				8F8C23261FCE20F4008647EF /* modbus-tcp.h */,
+				8F8C23271FCE20F4008647EF /* modbus-version.h */,
+				8F8C23281FCE20F4008647EF /* modbus.c */,
+				8F8C23291FCE20F4008647EF /* modbus.h */,
+				8F8C232A1FCE20F4008647EF /* NEWS */,
+				8F8C232B1FCE20F4008647EF /* README.rst */,
+				8F8C23191FCE1FA6008647EF /* myModbus-Bridging-Header.h */,
+				8F8C23171FCE1F23008647EF /* SwiftLibModbus.swift */,
 				8F8C22E01FCE0313008647EF /* AppDelegate.swift */,
 				8F8C22E21FCE0313008647EF /* RootViewController.swift */,
 				8F8C22E41FCE0313008647EF /* DataViewController.swift */,
@@ -109,6 +158,7 @@
 				8F8C22EB1FCE0313008647EF /* Assets.xcassets */,
 				8F8C22ED1FCE0313008647EF /* LaunchScreen.storyboard */,
 				8F8C22F01FCE0313008647EF /* Info.plist */,
+				8F8C231A1FCE20F4008647EF /* myModbus-Bridging-Header.h */,
 			);
 			path = myModbus;
 			sourceTree = "<group>";
@@ -236,8 +286,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F8C22EF1FCE0313008647EF /* LaunchScreen.storyboard in Resources */,
+				8F8C232E1FCE20F4008647EF /* COPYING.LESSER in Resources */,
+				8F8C232C1FCE20F4008647EF /* AUTHORS in Resources */,
+				8F8C23331FCE20F4008647EF /* NEWS in Resources */,
 				8F8C22EC1FCE0313008647EF /* Assets.xcassets in Resources */,
+				8F8C232D1FCE20F4008647EF /* COPYING in Resources */,
 				8F8C22EA1FCE0313008647EF /* Main.storyboard in Resources */,
+				8F8C23341FCE20F4008647EF /* README.rst in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,7 +318,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F8C22E31FCE0313008647EF /* RootViewController.swift in Sources */,
+				8F8C23301FCE20F4008647EF /* modbus-rtu.c in Sources */,
 				8F8C22E71FCE0313008647EF /* ModelController.swift in Sources */,
+				8F8C23311FCE20F4008647EF /* modbus-tcp.c in Sources */,
+				8F8C23321FCE20F4008647EF /* modbus.c in Sources */,
+				8F8C23181FCE1F23008647EF /* SwiftLibModbus.swift in Sources */,
+				8F8C232F1FCE20F4008647EF /* modbus-data.c in Sources */,
 				8F8C22E51FCE0313008647EF /* DataViewController.swift in Sources */,
 				8F8C22E11FCE0313008647EF /* AppDelegate.swift in Sources */,
 			);
@@ -409,10 +469,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = myModbus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = MT.myModbus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "myModbus/myModbus-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -420,10 +483,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = myModbus/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = MT.myModbus;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "myModbus/myModbus-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -492,6 +557,7 @@
 				8F8C230B1FCE0313008647EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8F8C230C1FCE0313008647EF /* Build configuration list for PBXNativeTarget "myModbusTests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +566,7 @@
 				8F8C230E1FCE0313008647EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8F8C230F1FCE0313008647EF /* Build configuration list for PBXNativeTarget "myModbusUITests" */ = {
 			isa = XCConfigurationList;
@@ -508,6 +575,7 @@
 				8F8C23111FCE0313008647EF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

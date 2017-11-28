@@ -7,6 +7,7 @@
 //
 
 import UIKit
+//import Foundation
 
 /*
  A controller object that manages a simple model -- a collection of month names.
@@ -21,13 +22,41 @@ import UIKit
 class ModelController: NSObject, UIPageViewControllerDataSource {
 
     var pageData: [String] = []
-
+    //var mod: NSObject;
+    //var client: SwiftLibModbus = nil
+    private let swiftLibModbus: SwiftLibModbus
 
     override init() {
+        swiftLibModbus = SwiftLibModbus(ipAddress: "192.168.1.6", port: 502, device: 1)
         super.init()
         // Create the data model.
         let dateFormatter = NSDateFormatter()
         pageData = dateFormatter.monthSymbols
+        //Inicia modbus call
+        //client = SwiftLibModbus(192.168.1.6,3,3)
+        
+        swiftLibModbus.connect(
+            { () -> Void in
+                print("exito")
+                self.swiftLibModbus.readRegistersFrom(40001, count: 2,
+                    success: { (array: [AnyObject]) -> Void in
+                        //Do something with the returned data (NSArray of NSNumber)..
+                        print("success: \(array)")
+                    },
+                    failure:  { (error: NSError) -> Void in
+                        //Handle error
+                        print("error")
+                })
+                
+                //connected and ready to do modbus calls
+            },
+            failure: { (error: NSError) -> Void in
+                //Handle error
+                print("error")
+        })
+    }
+    func disconnect(){
+        self.swiftLibModbus.disconnect()
     }
 
     func viewControllerAtIndex(index: Int, storyboard: UIStoryboard) -> DataViewController? {
