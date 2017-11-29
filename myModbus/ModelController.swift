@@ -177,6 +177,8 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
             }
         }
     }
+    
+    		
 
 }
 

@@ -27,7 +27,7 @@ class DataViewController: UIViewController {
     
     func refreshEvery1Secs(){
         if(appDelegate.result.count>0){
-            print("actualizando valor")
+            //print("actualizando valor")
         self.txtPrueba.text = String(appDelegate.result[0])
         }
         // refresh code

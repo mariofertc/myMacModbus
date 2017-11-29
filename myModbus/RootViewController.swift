@@ -86,7 +86,11 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
         return .Mid
     }
-
+    
+    func windowShouldClose(sender: Any) {
+        self.modelController.disconnect()
+        //NSApplication.shared().terminate(self)
+    }
 
 }
 
