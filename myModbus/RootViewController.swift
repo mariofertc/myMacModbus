@@ -37,6 +37,8 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         self.pageViewController!.view.frame = pageViewRect
 
         self.pageViewController!.didMoveToParentViewController(self)
+        //self.modelController.nsReceive
+        
     }
 
     override func didReceiveMemoryWarning() {

@@ -25,54 +25,69 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
     var pageData: [String] = []
     var mConnect: Bool = false
     var receive: [String] = []
-    var nsReceive: NSArray = []
+    //var nsReceive: NSArray = []
+    var nsReceive: [AnyObject] = []
+    
+    var read_tries = 0
     //var mod: NSObject;
     //var client: SwiftLibModbus = nil
-    private let swiftLibModbus: SwiftLibModbus
+    private var swiftLibModbus: SwiftLibModbus
+    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
     override init() {
         self.swiftLibModbus = SwiftLibModbus(ipAddress: "192.168.1.6", port: 502, device: 1)
         super.init()
         // Create the data model.
-        let dateFormatter = NSDateFormatter()
-        pageData = dateFormatter.monthSymbols
-        //Inicia modbus call
-        //client = SwiftLibModbus(192.168.1.6,3,3)
+        //let dateFormatter = NSDateFormatter()
+        //pageData = dateFormatter.monthSymbols
+        pageData =  ["Inicio", "Ajustes"]
         
-        /*let qualityOfServiceClass = QOS_CLASS_BACKGROUND
-        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
-        dispatch_async(backgroundQueue, {
-            print("This is run on the background queue")
-            
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                print("This is run on the main queue, after the previous code in outer block")
-            })
-        })*/
+        //connect();
+        // Create a new view controller and pass suitable data.
+        /*
+        let dataViewController = storyboard.instantiateViewControllerWithIdentifier("DataViewController") as! DataViewController
+        dataViewController.dataObject = self.pageData[index]
+        */
         
-        connect();
+        /*let controller = .destinationViewController as! DetailViewViewController
+        let _ = controller.view
+        controller.detailViewLabel.text = "Hello!"*/
         
         backgroundThread(3.0, background: {
             // Your delayed function here to be run in the foreground
             while(1==1){
+                if(self.read_tries>2){
+                    self.disconnect()
+                    sleep(4)
+                    self.connect()
+                    sleep(4)
+                    self.read_tries = 0
+                }
+                
+                
                 if(self.mConnect){
                 self.swiftLibModbus.readRegistersFrom(1, count: 2,
                     success: { (array: [AnyObject]) -> Void in
                         self.nsReceive = array
+                        self.appDelegate.result = array
                         //Do something with the returned data (NSArray of NSNumber)..
                         print("success: \(array)")
+                        self.read_tries = 0
                     },
                     failure:  { (error: NSError) -> Void in
                         //Handle error
-                        self.mConnect = false
+                        self.read_tries=self.read_tries+1;
                         //sleep(4000)
                         print("error")
                 })
-                    print(self.nsReceive)
+                    //print("aka")
+                    //print(self.nsReceive)
                     sleep(1)
                 }else{
                     print("Not connected. Wait 4 seconds")
-                    sleep(4)
                     self.connect()
+                    sleep(4)
+                    
                 }
             }
             //print("Entramos")
@@ -80,6 +95,9 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         
     }
     func connect(){
+        self.swiftLibModbus.disconnect()
+        //sleep(1)
+        self.swiftLibModbus = SwiftLibModbus(ipAddress: "192.168.1.6", port: 502, device: 1)
         self.swiftLibModbus.connect(
             { () -> Void in
                 print("exito")
@@ -93,18 +111,28 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         })
     }
     func disconnect(){
+        self.mConnect = false
         self.swiftLibModbus.disconnect()
     }
 
     func viewControllerAtIndex(index: Int, storyboard: UIStoryboard) -> DataViewController? {
         // Return the data view controller for the given index.
-        if (self.pageData.count == 0) || (index >= self.pageData.count) {
+        //if (self.pageData.count == 0) || (index >= self.pageData.count) {
+        if (self.pageData.count == 0) || (index >= 2) {
             return nil
         }
 
         // Create a new view controller and pass suitable data.
         let dataViewController = storyboard.instantiateViewControllerWithIdentifier("DataViewController") as! DataViewController
         dataViewController.dataObject = self.pageData[index]
+        
+        /*if(self.nsReceive.count>0){
+            let data = self.nsReceive[0]
+            print(self.nsReceive    )
+            dataViewController.dataReceive = String(data)
+            //dataViewController.txtPrueba.text = self.nsReceive[0] as? String
+        }*/
+        //print("aqui")
         return dataViewController
     }
 
