@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Dispatch
 //import Foundation
 
 /*
@@ -22,12 +23,15 @@ import UIKit
 class ModelController: NSObject, UIPageViewControllerDataSource {
 
     var pageData: [String] = []
+    var mConnect: Bool = false
+    var receive: [String] = []
+    var nsReceive: NSArray = []
     //var mod: NSObject;
     //var client: SwiftLibModbus = nil
     private let swiftLibModbus: SwiftLibModbus
 
     override init() {
-        swiftLibModbus = SwiftLibModbus(ipAddress: "192.168.1.6", port: 502, device: 1)
+        self.swiftLibModbus = SwiftLibModbus(ipAddress: "192.168.1.6", port: 502, device: 1)
         super.init()
         // Create the data model.
         let dateFormatter = NSDateFormatter()
@@ -35,23 +39,56 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         //Inicia modbus call
         //client = SwiftLibModbus(192.168.1.6,3,3)
         
-        swiftLibModbus.connect(
-            { () -> Void in
-                print("exito")
-                self.swiftLibModbus.readRegistersFrom(40001, count: 2,
+        /*let qualityOfServiceClass = QOS_CLASS_BACKGROUND
+        let backgroundQueue = dispatch_get_global_queue(qualityOfServiceClass, 0)
+        dispatch_async(backgroundQueue, {
+            print("This is run on the background queue")
+            
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                print("This is run on the main queue, after the previous code in outer block")
+            })
+        })*/
+        
+        connect();
+        
+        backgroundThread(3.0, background: {
+            // Your delayed function here to be run in the foreground
+            while(1==1){
+                if(self.mConnect){
+                self.swiftLibModbus.readRegistersFrom(1, count: 2,
                     success: { (array: [AnyObject]) -> Void in
+                        self.nsReceive = array
                         //Do something with the returned data (NSArray of NSNumber)..
                         print("success: \(array)")
                     },
                     failure:  { (error: NSError) -> Void in
                         //Handle error
+                        self.mConnect = false
+                        //sleep(4000)
                         print("error")
                 })
-                
+                    print(self.nsReceive)
+                    sleep(1)
+                }else{
+                    print("Not connected. Wait 4 seconds")
+                    sleep(4)
+                    self.connect()
+                }
+            }
+            //print("Entramos")
+        })
+        
+    }
+    func connect(){
+        self.swiftLibModbus.connect(
+            { () -> Void in
+                print("exito")
+                self.mConnect = true
                 //connected and ready to do modbus calls
             },
             failure: { (error: NSError) -> Void in
                 //Handle error
+                self.mConnect = false
                 print("error")
         })
     }
@@ -100,6 +137,17 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
             return nil
         }
         return self.viewControllerAtIndex(index, storyboard: viewController.storyboard!)
+    }
+    
+    func backgroundThread(delay: Double = 0.0, background: (() -> Void)? = nil, completion: (() -> Void)? = nil) {
+        dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INITIATED.rawValue), 0)) {
+            if(background != nil){ background!(); }
+            
+            let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64(delay * Double(NSEC_PER_SEC)))
+            dispatch_after(popTime, dispatch_get_main_queue()) {
+                if(completion != nil){ completion!(); }
+            }
+        }
     }
 
 }
