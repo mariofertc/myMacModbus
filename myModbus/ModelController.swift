@@ -33,9 +33,32 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
     //var client: SwiftLibModbus = nil
     private var swiftLibModbus: SwiftLibModbus
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    
+    var ipDefault:String = "192.168.1.6"
+    var portDefault:Int = 502
 
     override init() {
-        self.swiftLibModbus = SwiftLibModbus(ipAddress: "192.168.1.6", port: 502, device: 1)
+        //let ip: String = NSUserDefaults.standardUserDefaults().stringForKey("ip")!
+        let defaults = NSUserDefaults.standardUserDefaults()
+        //var ip:String = ""
+        if (defaults.objectForKey("ip") == nil) {
+            defaults.setValue(ipDefault, forKey: "ip")
+            defaults.setValue(portDefault, forKey: "port")
+            print("Primera asignacion de configuracion")
+        }
+        
+        
+ //       if(defaults.)
+        //var ip:String = defaults.stringForKey("ip")!
+        //if(ip == ""){
+        
+        //    ip = "192.168.1.6"
+           // defaults.setValue(ip, forKey: "ip")
+            
+        //}
+        //self.swiftLibModbus = SwiftLibModbus(ipAddress: "192.168.1.6", port: 502, device: 1)
+        
+        self.swiftLibModbus = SwiftLibModbus(ipAddress: defaults.stringForKey("ip")!, port: Int32(defaults.integerForKey("port")), device: 1)
         super.init()
         // Create the data model.
         //let dateFormatter = NSDateFormatter()

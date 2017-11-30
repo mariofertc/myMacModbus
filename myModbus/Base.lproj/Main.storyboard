@@ -69,6 +69,19 @@
                                     <constraint firstItem="Wea-dg-iDh" firstAttribute="leading" secondItem="s1b-V9-EN7" secondAttribute="leading" constant="2" id="ve8-Mz-W8r"/>
                                 </constraints>
                             </view>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e6P-Sh-9R0">
+                                <rect key="frame" x="25" y="60" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                                <connections>
+                                    <action selector="txtIp:" destination="S4R-Ja-viH" eventType="valueChanged" id="0Rk-Rq-Xe2"/>
+                                </connections>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sXB-b3-ikH">
+                                <rect key="frame" x="135" y="60" width="97" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.97826086960000003" green="0.9374081619343434" blue="0.74891412513902289" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -85,6 +98,7 @@
                     <connections>
                         <outlet property="dataLabel" destination="cF2-Le-7mQ" id="g8e-2b-Wh0"/>
                         <outlet property="gvMedidor" destination="Wea-dg-iDh" id="UiW-8A-vtx"/>
+                        <outlet property="txtIp" destination="e6P-Sh-9R0" id="0qK-13-6YH"/>
                         <outlet property="txtPrueba" destination="7B9-Lk-vmb" id="Enn-af-n6D"/>
                     </connections>
                 </viewController>

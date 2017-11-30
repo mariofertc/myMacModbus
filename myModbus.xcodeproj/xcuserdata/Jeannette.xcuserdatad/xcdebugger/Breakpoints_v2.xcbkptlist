@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "myModbus/ModelController.swift"
-            timestampString = "533626929.255546"
+            timestampString = "533713807.465851"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "79"
+            endingLineNumber = "79"
             landmarkName = "init()"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "myModbus/ModelController.swift"
-            timestampString = "533626929.255546"
+            timestampString = "533713807.465851"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
             landmarkName = "init()"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "myModbus/ModelController.swift"
-            timestampString = "533627346.682344"
+            timestampString = "533713807.465851"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
             landmarkName = "viewControllerAtIndex(_:storyboard:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "myModbus/ModelController.swift"
-            timestampString = "533627346.682344"
+            timestampString = "533713807.465851"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
             landmarkName = "viewControllerAtIndex(_:storyboard:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "myModbus/ModelController.swift"
-            timestampString = "533626929.255546"
+            timestampString = "533713807.465851"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "viewControllerAtIndex(_:storyboard:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "myModbus/ModelController.swift"
-            timestampString = "533627346.682344"
+            timestampString = "533713807.465851"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "132"
-            endingLineNumber = "132"
+            startingLineNumber = "155"
+            endingLineNumber = "155"
             landmarkName = "viewControllerAtIndex(_:storyboard:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "myModbus/DataViewController.swift"
-            timestampString = "533710478.27161"
+            timestampString = "533715452.393923"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "52"
-            endingLineNumber = "52"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
             landmarkName = "refreshEvery1Secs()"
             landmarkType = "5">
          </BreakpointContent>
@@ -154,13 +154,77 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "myModbus/DataViewController.swift"
-            timestampString = "533708727.044043"
+            timestampString = "533715452.393923"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "26"
-            endingLineNumber = "26"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
             landmarkName = "viewDidLoad()"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "myModbus/ModelController.swift"
+            timestampString = "533713807.465851"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "init()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "myModbus/ModelController.swift"
+            timestampString = "533713807.465851"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "ModelController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "myModbus.ModelController.ipDefault.getter : Swift.String"
+                  moduleName = "myModbus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Jeannette/Desktop/mario/myModbus/myModbus/ModelController.swift"
+                  timestampString = "533713448.277293"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "41">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "myModbus.ModelController.init () -&gt; myModbus.ModelController"
+                  moduleName = "myModbus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/Jeannette/Desktop/mario/myModbus/myModbus/ModelController.swift"
+                  timestampString = "533713448.277725"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "427">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

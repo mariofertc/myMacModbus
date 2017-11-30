@@ -16,12 +16,21 @@ class DataViewController: UIViewController {
     var dataReceive: String = ""
     var timer: NSTimer!
     var refresher: UIRefreshControl!
+    @IBOutlet weak var txtIp: UITextField!
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
 
+    @IBAction func txtIp(sender: AnyObject) {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setValue(sender.textLabel, forKey: "ip")
+        print("Ip Cambiada")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.getTimeOfDate), userInfo: nil, repeats: true)
+        
+        
         gvMedidor.style = WMGaugeViewStyleFlatThin()
         //WMGaugeViewStyle3D)
         //WMGaugeViewStyleFlatThin
@@ -44,6 +53,20 @@ class DataViewController: UIViewController {
         gvMedidor.value = 0;
         timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector:Selector("refreshEvery1Secs"), userInfo: nil, repeats: true)
         //appDelegate.Check="Modified"
+        
+        
+       /* defaults.set
+        defaults.set
+        defaults.set(25, forKey: "Age")
+        defaults.set(true, forKey: "UseTouchID")
+        defaults.set(CGFloat.pi, forKey: "Pi")
+        
+        
+        defaults.set("Paul Hudson", forKey: "Name")
+        defaults.set(Date(), forKey: "LastRun")
+        
+        let elmer: Int = NSUserDefaults.standardUserDefaults().integerForKey("elmer")
+*/
     }
     
     func refreshEvery1Secs(){
@@ -74,6 +97,9 @@ class DataViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.dataLabel.text = dataObject;
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        self.txtIp.text=String(defaults.stringForKey("ip")!)
         //self.modelCo
         //self.txtPrueba.text = dataReceive
 //        self.txtPrueba.text = appDelegate.result
