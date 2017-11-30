@@ -12,6 +12,7 @@ class DataViewController: UIViewController {
 
     @IBOutlet weak var dataLabel: UILabel!
     var dataObject: String = ""
+    @IBOutlet weak var gvMedidor: WMGaugeView!
     var dataReceive: String = ""
     var timer: NSTimer!
     var refresher: UIRefreshControl!
@@ -21,6 +22,26 @@ class DataViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.getTimeOfDate), userInfo: nil, repeats: true)
+        gvMedidor.style = WMGaugeViewStyleFlatThin()
+        //WMGaugeViewStyle3D)
+        //WMGaugeViewStyleFlatThin
+        gvMedidor.maxValue = 2000.0;
+        gvMedidor.showRangeLabels = true;
+        gvMedidor.rangeValues = [500, 1000, 1500, 2000.0];
+        gvMedidor.rangeColors = [ UIColor.whiteColor(),UIColor.greenColor(), UIColor.orangeColor(),UIColor.redColor()    ];
+        gvMedidor.rangeLabels = [ "VERY LOW",          "LOW",             "OK",              "OVER FILL"        ];
+        gvMedidor.scaleDivisions = 10;
+        gvMedidor.scaleSubdivisions = 5;
+        gvMedidor.scaleStartAngle = 30;
+        gvMedidor.unitOfMeasurement = "KVA";
+        gvMedidor.showUnitOfMeasurement = true;
+        gvMedidor.scaleDivisionsWidth = 0.002;
+        gvMedidor.scaleSubdivisionsWidth = 0.04;
+        gvMedidor.scaleEndAngle = 280;
+        gvMedidor.rangeLabelsFontColor = UIColor.blackColor();
+        gvMedidor.rangeLabelsWidth = 0.04;
+        gvMedidor.rangeLabelsFont = UIFont.init(name: "Helvetica", size: 0.04)
+        gvMedidor.value = 0;
         timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector:Selector("refreshEvery1Secs"), userInfo: nil, repeats: true)
         //appDelegate.Check="Modified"
     }
@@ -29,6 +50,7 @@ class DataViewController: UIViewController {
         if(appDelegate.result.count>0){
             //print("actualizando valor")
         self.txtPrueba.text = String(appDelegate.result[0])
+            gvMedidor.value = Float(appDelegate.result[0] as! NSNumber)
         }
         // refresh code
     }

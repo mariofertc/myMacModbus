@@ -26,6 +26,9 @@
 		8F8C23321FCE20F4008647EF /* modbus.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C23281FCE20F4008647EF /* modbus.c */; };
 		8F8C23331FCE20F4008647EF /* NEWS in Resources */ = {isa = PBXBuildFile; fileRef = 8F8C232A1FCE20F4008647EF /* NEWS */; };
 		8F8C23341FCE20F4008647EF /* README.rst in Resources */ = {isa = PBXBuildFile; fileRef = 8F8C232B1FCE20F4008647EF /* README.rst */; };
+		8FDB50D41FCFB8DE00640455 /* WMGaugeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB50CE1FCFB8DE00640455 /* WMGaugeView.m */; };
+		8FDB50D51FCFB8DE00640455 /* WMGaugeViewStyle3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB50D11FCFB8DE00640455 /* WMGaugeViewStyle3D.m */; };
+		8FDB50D61FCFB8DE00640455 /* WMGaugeViewStyleFlatThin.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB50D31FCFB8DE00640455 /* WMGaugeViewStyleFlatThin.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +84,13 @@
 		8F8C23291FCE20F4008647EF /* modbus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = modbus.h; path = Vendor/libmodbus/modbus.h; sourceTree = "<group>"; };
 		8F8C232A1FCE20F4008647EF /* NEWS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = NEWS; path = Vendor/libmodbus/NEWS; sourceTree = "<group>"; };
 		8F8C232B1FCE20F4008647EF /* README.rst */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.rst; path = Vendor/libmodbus/README.rst; sourceTree = "<group>"; };
+		8FDB50CD1FCFB8DE00640455 /* WMGaugeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMGaugeView.h; path = Vendor/WMGauge/WMGaugeView.h; sourceTree = "<group>"; };
+		8FDB50CE1FCFB8DE00640455 /* WMGaugeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMGaugeView.m; path = Vendor/WMGauge/WMGaugeView.m; sourceTree = "<group>"; };
+		8FDB50CF1FCFB8DE00640455 /* WMGaugeViewStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMGaugeViewStyle.h; path = Vendor/WMGauge/WMGaugeViewStyle.h; sourceTree = "<group>"; };
+		8FDB50D01FCFB8DE00640455 /* WMGaugeViewStyle3D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMGaugeViewStyle3D.h; path = Vendor/WMGauge/WMGaugeViewStyle3D.h; sourceTree = "<group>"; };
+		8FDB50D11FCFB8DE00640455 /* WMGaugeViewStyle3D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMGaugeViewStyle3D.m; path = Vendor/WMGauge/WMGaugeViewStyle3D.m; sourceTree = "<group>"; };
+		8FDB50D21FCFB8DE00640455 /* WMGaugeViewStyleFlatThin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMGaugeViewStyleFlatThin.h; path = Vendor/WMGauge/WMGaugeViewStyleFlatThin.h; sourceTree = "<group>"; };
+		8FDB50D31FCFB8DE00640455 /* WMGaugeViewStyleFlatThin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMGaugeViewStyleFlatThin.m; path = Vendor/WMGauge/WMGaugeViewStyleFlatThin.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +141,13 @@
 		8F8C22DF1FCE0313008647EF /* myModbus */ = {
 			isa = PBXGroup;
 			children = (
+				8FDB50CD1FCFB8DE00640455 /* WMGaugeView.h */,
+				8FDB50CE1FCFB8DE00640455 /* WMGaugeView.m */,
+				8FDB50CF1FCFB8DE00640455 /* WMGaugeViewStyle.h */,
+				8FDB50D01FCFB8DE00640455 /* WMGaugeViewStyle3D.h */,
+				8FDB50D11FCFB8DE00640455 /* WMGaugeViewStyle3D.m */,
+				8FDB50D21FCFB8DE00640455 /* WMGaugeViewStyleFlatThin.h */,
+				8FDB50D31FCFB8DE00640455 /* WMGaugeViewStyleFlatThin.m */,
 				8F8C231B1FCE20F4008647EF /* AUTHORS */,
 				8F8C231C1FCE20F4008647EF /* config.h */,
 				8F8C231D1FCE20F4008647EF /* COPYING */,
@@ -320,7 +337,10 @@
 			files = (
 				8F8C22E31FCE0313008647EF /* RootViewController.swift in Sources */,
 				8F8C23301FCE20F4008647EF /* modbus-rtu.c in Sources */,
+				8FDB50D41FCFB8DE00640455 /* WMGaugeView.m in Sources */,
 				8F8C22E71FCE0313008647EF /* ModelController.swift in Sources */,
+				8FDB50D61FCFB8DE00640455 /* WMGaugeViewStyleFlatThin.m in Sources */,
+				8FDB50D51FCFB8DE00640455 /* WMGaugeViewStyle3D.m in Sources */,
 				8F8C23311FCE20F4008647EF /* modbus-tcp.c in Sources */,
 				8F8C23321FCE20F4008647EF /* modbus.c in Sources */,
 				8F8C23181FCE1F23008647EF /* SwiftLibModbus.swift in Sources */,

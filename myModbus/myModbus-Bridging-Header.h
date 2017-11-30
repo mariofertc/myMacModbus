@@ -3,3 +3,4 @@
 //
 
 #import "modbus.h"
+#import "WMGaugeView.h"
