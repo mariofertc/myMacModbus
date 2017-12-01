@@ -36,10 +36,10 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
     
     var ipDefault:String = "192.168.1.6"
     var portDefault:Int = 502
-
+    let defaults = NSUserDefaults.standardUserDefaults()
     override init() {
         //let ip: String = NSUserDefaults.standardUserDefaults().stringForKey("ip")!
-        let defaults = NSUserDefaults.standardUserDefaults()
+        
         //var ip:String = ""
         if (defaults.objectForKey("ip") == nil) {
             defaults.setValue(ipDefault, forKey: "ip")
@@ -89,20 +89,20 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
                 
                 
                 if(self.mConnect){
-                self.swiftLibModbus.readRegistersFrom(1, count: 2,
-                    success: { (array: [AnyObject]) -> Void in
-                        self.nsReceive = array
-                        self.appDelegate.result = array
-                        //Do something with the returned data (NSArray of NSNumber)..
-                        print("success: \(array)")
-                        self.read_tries = 0
-                    },
-                    failure:  { (error: NSError) -> Void in
-                        //Handle error
-                        self.read_tries=self.read_tries+1;
-                        //sleep(4000)
-                        print("error")
-                })
+                    self.swiftLibModbus.readRegistersFrom(1, count: 2,
+                        success: { (array: [AnyObject]) -> Void in
+                            self.nsReceive = array
+                            self.appDelegate.result = array
+                            //Do something with the returned data (NSArray of NSNumber)..
+                            print("success: \(array)")
+                            self.read_tries = 0
+                        },
+                        failure:  { (error: NSError) -> Void in
+                            //Handle error
+                            self.read_tries=self.read_tries+1;
+                            //sleep(4000)
+                            print("error")
+                        })
                     //print("aka")
                     //print(self.nsReceive)
                     sleep(1)
@@ -110,7 +110,6 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
                     print("Not connected. Wait 4 seconds")
                     self.connect()
                     sleep(4)
-                    
                 }
             }
             //print("Entramos")
@@ -120,7 +119,8 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
     func connect(){
         self.swiftLibModbus.disconnect()
         //sleep(1)
-        self.swiftLibModbus = SwiftLibModbus(ipAddress: "192.168.1.6", port: 502, device: 1)
+        //self.swiftLibModbus = SwiftLibModbus(ipAddress: "192.168.1.6", port: 502, device: 1)
+        self.swiftLibModbus = SwiftLibModbus(ipAddress: defaults.stringForKey("ip")!, port: Int32(defaults.integerForKey("port")), device: 1)
         self.swiftLibModbus.connect(
             { () -> Void in
                 print("exito")

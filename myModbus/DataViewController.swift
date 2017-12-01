@@ -18,16 +18,20 @@ class DataViewController: UIViewController {
     var refresher: UIRefreshControl!
     @IBOutlet weak var txtIp: UITextField!
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-
+    @IBOutlet weak var btnGuardar: UIButton!
     @IBAction func txtIp(sender: AnyObject) {
-        let defaults = NSUserDefaults.standardUserDefaults()
-        defaults.setValue(sender.textLabel, forKey: "ip")
+        //let defaults = NSUserDefaults.standardUserDefaults()
+        //defaults.setValue(sender.textLabel, forKey: "ip")
         print("Ip Cambiada")
     }
+    @IBOutlet weak var txtPort: UITextField!
+    let defaults = NSUserDefaults.standardUserDefaults()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        
         //timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.getTimeOfDate), userInfo: nil, repeats: true)
         
         
@@ -52,7 +56,12 @@ class DataViewController: UIViewController {
         gvMedidor.rangeLabelsFont = UIFont.init(name: "Helvetica", size: 0.04)
         gvMedidor.value = 0;
         timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector:Selector("refreshEvery1Secs"), userInfo: nil, repeats: true)
+        //btnGuardar.targetForAction(Selector("tappedButton"), withSender: self)
         //appDelegate.Check="Modified"
+        
+        //btnGuardar.
+        
+        btnGuardar.addTarget(self, action: #selector(tappedButton), forControlEvents: .TouchUpInside)
         
         
        /* defaults.set
@@ -67,6 +76,16 @@ class DataViewController: UIViewController {
         
         let elmer: Int = NSUserDefaults.standardUserDefaults().integerForKey("elmer")
 */
+    }
+    
+    func tappedButton(sender: UIButton!)
+    {
+        
+        defaults.setValue(self.txtIp.text, forKey: "ip")
+        defaults.setValue(self.txtPort.text, forKey: "port")
+        
+        //appDelegate.setValue("192.168.1.7", forKey: "ip")
+        print("tapped button")
     }
     
     func refreshEvery1Secs(){
@@ -98,8 +117,9 @@ class DataViewController: UIViewController {
         super.viewWillAppear(animated)
         self.dataLabel.text = dataObject;
         
-        let defaults = NSUserDefaults.standardUserDefaults()
+        //let defaults = NSUserDefaults.standardUserDefaults()
         self.txtIp.text=String(defaults.stringForKey("ip")!)
+        self.txtPort.text=String(defaults.integerForKey("port"))
         //self.modelCo
         //self.txtPrueba.text = dataReceive
 //        self.txtPrueba.text = appDelegate.result
