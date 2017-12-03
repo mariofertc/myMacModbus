@@ -21,6 +21,7 @@ import Dispatch
 
 
 class ModelController: NSObject, UIPageViewControllerDataSource {
+//class ModelController: NSObject, UIPageViewController, UIPageViewControllerDataSource {
 
     var pageData: [String] = []
     var mConnect: Bool = false
@@ -31,17 +32,18 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
     var read_tries = 0
     //var mod: NSObject;
     //var client: SwiftLibModbus = nil
-    private var swiftLibModbus: SwiftLibModbus
-    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    var swiftLibModbus: SwiftLibModbus
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     var ipDefault:String = "192.168.1.6"
     var portDefault:Int = 502
-    let defaults = NSUserDefaults.standardUserDefaults()
+    let defaults = UserDefaults.standard
+    
     override init() {
         //let ip: String = NSUserDefaults.standardUserDefaults().stringForKey("ip")!
         
         //var ip:String = ""
-        if (defaults.objectForKey("ip") == nil) {
+        if (defaults.object(forKey: "ip") == nil) {
             defaults.setValue(ipDefault, forKey: "ip")
             defaults.setValue(portDefault, forKey: "port")
             print("Primera asignacion de configuracion")
@@ -58,7 +60,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         //}
         //self.swiftLibModbus = SwiftLibModbus(ipAddress: "192.168.1.6", port: 502, device: 1)
         
-        self.swiftLibModbus = SwiftLibModbus(ipAddress: defaults.stringForKey("ip")!, port: Int32(defaults.integerForKey("port")), device: 1)
+        self.swiftLibModbus = SwiftLibModbus(ipAddress: defaults.string(forKey: "ip")! as NSString, port: Int32(defaults.integer(forKey: "port")), device: 1)
         super.init()
         // Create the data model.
         //let dateFormatter = NSDateFormatter()
@@ -76,7 +78,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         let _ = controller.view
         controller.detailViewLabel.text = "Hello!"*/
         
-        backgroundThread(3.0, background: {
+        backgroundThread(delay: 3.0, background: {
             // Your delayed function here to be run in the foreground
             while(1==1){
                 if(self.read_tries>2){
@@ -89,7 +91,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
                 
                 
                 if(self.mConnect){
-                    self.swiftLibModbus.readRegistersFrom(1, count: 2,
+                    self.swiftLibModbus.readRegistersFrom(startAddress: 1, count: 2,
                         success: { (array: [AnyObject]) -> Void in
                             self.nsReceive = array
                             self.appDelegate.result = array
@@ -120,9 +122,9 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         self.swiftLibModbus.disconnect()
         //sleep(1)
         //self.swiftLibModbus = SwiftLibModbus(ipAddress: "192.168.1.6", port: 502, device: 1)
-        self.swiftLibModbus = SwiftLibModbus(ipAddress: defaults.stringForKey("ip")!, port: Int32(defaults.integerForKey("port")), device: 1)
+        self.swiftLibModbus = SwiftLibModbus(ipAddress: defaults.string(forKey: "ip")! as NSString, port: Int32(defaults.integer(forKey: "port")), device: 1)
         self.swiftLibModbus.connect(
-            { () -> Void in
+            success: { () -> Void in
                 print("exito")
                 self.mConnect = true
                 //connected and ready to do modbus calls
@@ -146,7 +148,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         }
 
         // Create a new view controller and pass suitable data.
-        let dataViewController = storyboard.instantiateViewControllerWithIdentifier("DataViewController") as! DataViewController
+        let dataViewController = storyboard.instantiateViewController(withIdentifier: "DataViewController") as! DataViewController
         dataViewController.dataObject = self.pageData[index]
         
         /*if(self.nsReceive.count>0){
@@ -162,23 +164,25 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
     func indexOfViewController(viewController: DataViewController) -> Int {
         // Return the index of the given data view controller.
         // For simplicity, this implementation uses a static array of model objects and the view controller stores the model object; you can therefore use the model object to identify the index.
-        return pageData.indexOf(viewController.dataObject) ?? NSNotFound
+        return pageData.index(of: viewController.dataObject) ?? NSNotFound
     }
 
     // MARK: - Page View Controller Data Source
 
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
-        var index = self.indexOfViewController(viewController as! DataViewController)
+    // MARK: - Page View Controller Data Source
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        var index = self.indexOfViewController(viewController: viewController as! DataViewController)
         if (index == 0) || (index == NSNotFound) {
             return nil
         }
         
         index -= 1
-        return self.viewControllerAtIndex(index, storyboard: viewController.storyboard!)
+        return self.viewControllerAtIndex(index: index, storyboard: viewController.storyboard!)
     }
-
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        var index = self.indexOfViewController(viewController as! DataViewController)
+    
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+        var index = self.indexOfViewController(viewController: viewController as! DataViewController)
         if index == NSNotFound {
             return nil
         }
@@ -187,10 +191,20 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         if index == self.pageData.count {
             return nil
         }
-        return self.viewControllerAtIndex(index, storyboard: viewController.storyboard!)
+        return self.viewControllerAtIndex(index: index, storyboard: viewController.storyboard!)
     }
     
-    func backgroundThread(delay: Double = 0.0, background: (() -> Void)? = nil, completion: (() -> Void)? = nil) {
+    func backgroundThread(delay: Double = 0.0, background: (()->Void)? = nil, completion: (() -> Void)? = nil) {
+        DispatchQueue.global(qos: .background).async {
+            background?()
+            if let completion = completion {
+                DispatchQueue.main.asyncAfter(deadline: .now() + delay, execute: {
+                    completion()
+                })
+            }
+        }
+    }
+    /*func backgroundThread(delay: Double = 0.0, background: (() -> Void)? = nil, completion: (() -> Void)? = nil) {
         dispatch_async(dispatch_get_global_queue(Int(QOS_CLASS_USER_INITIATED.rawValue), 0)) {
             if(background != nil){ background!(); }
             
@@ -199,7 +213,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
                 if(completion != nil){ completion!(); }
             }
         }
-    }
+    }*/
     
     		
 
