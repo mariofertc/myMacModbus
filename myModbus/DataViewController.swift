@@ -24,13 +24,18 @@ class DataViewController: UIViewController {
         //defaults.setValue(sender.textLabel, forKey: "ip")
         print("Ip Cambiada")
     }
+
+    @IBOutlet weak var uivAjustes: UIView!
     @IBOutlet weak var txtPort: UITextField!
+
     let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+
         
         //timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.getTimeOfDate), userInfo: nil, repeats: true)
         
@@ -116,10 +121,17 @@ class DataViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.dataLabel.text = dataObject;
-        
+        if(dataObject == "Inicio"){
+            //uivAjustes.hidden = true
+            self.gvMedidor.isHidden = false
+            self.uivAjustes.isHidden = true
+        }else{
+            self.uivAjustes.isHidden = false
+            self.txtIp.text=String(defaults.string(forKey: "ip")!)
+            self.txtPort.text=String(defaults.integer(forKey: "port"))
+        }
         //let defaults = NSUserDefaults.standardUserDefaults()
-        self.txtIp.text=String(defaults.string(forKey: "ip")!)
-        self.txtPort.text=String(defaults.integer(forKey: "port"))
+        //self.gvMedidor.isHidden = true
         //self.modelCo
         //self.txtPrueba.text = dataReceive
 //        self.txtPrueba.text = appDelegate.result
