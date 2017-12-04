@@ -73,20 +73,20 @@
     // Default Face
     CGColorSpaceRef baseSpace = CGColorSpaceCreateDeviceRGB();
     CGGradientRef gradient = CGGradientCreateWithColors(baseSpace, (CFArrayRef)@[iCGRGB(96, 96, 96), iCGRGB(68, 68, 68), iCGRGB(32, 32, 32)], (const CGFloat[]){0.35, 0.96, 0.99});
-    CGColorSpaceRelease(baseSpace), baseSpace = NULL;
+    (void)(CGColorSpaceRelease(baseSpace)), baseSpace = NULL;
     CGContextAddEllipseInRect(context, rect);
     CGContextClip(context);
     CGContextDrawRadialGradient(context, gradient, kCenterPoint, 0, kCenterPoint, rect.size.width / 2.0, kCGGradientDrawsAfterEndLocation);
-    CGGradientRelease(gradient), gradient = NULL;
+    (void)(CGGradientRelease(gradient)), gradient = NULL;
     
     // Shadow
     baseSpace = CGColorSpaceCreateDeviceRGB();
     gradient = CGGradientCreateWithColors(baseSpace, (CFArrayRef)@[iCGRGBA(40, 96, 170, 60), iCGRGBA(15, 34, 98, 80), iCGRGBA(0, 0, 0, 120), iCGRGBA(0, 0, 0, 140)], (const CGFloat[]){0.60, 0.85, 0.96, 0.99});
-    CGColorSpaceRelease(baseSpace), baseSpace = NULL;
+    (void)(CGColorSpaceRelease(baseSpace)), baseSpace = NULL;
     CGContextAddEllipseInRect(context, rect);
     CGContextClip(context);
     CGContextDrawRadialGradient(context, gradient, kCenterPoint, 0, kCenterPoint, rect.size.width / 2.0, kCGGradientDrawsAfterEndLocation);
-    CGGradientRelease(gradient), gradient = NULL;
+    (void)(CGGradientRelease(gradient)), gradient = NULL;
     
     // Border
     CGContextSetLineWidth(context, 0.005);
