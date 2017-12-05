@@ -96,10 +96,36 @@ class DataViewController: UIViewController {
     func refreshEvery1Secs(){
         if(appDelegate.result.count>0){
             //print("actualizando valor")
-            self.txtPrueba.text = String(describing: appDelegate.result[0])
-            gvMedidor.value = Float(appDelegate.result[0] as! NSNumber)
+            let res = get32Bytes(result: appDelegate.result)
+            self.txtPrueba.text = String(describing: res)
+            //gvMedidor.value = Float(appDelegate.result[0] as! NSNumber)
+            gvMedidor.value = Float(res)
         }
         // refresh code
+    }
+    
+    func get32Bytes(result: [AnyObject]) -> Int32{
+        var response = 0
+        //let bytes:[UInt16] = result as! [UInt16]
+        /*let data = NSData(bytes: result, length: 2)
+        print("data: \(data)") // data: <0102>
+        data.getBytes(&response, length: MemoryLayout<NSInteger>.size)
+        return response*/
+        
+        let bytes: [Int16] = result as! [Int16]
+        let s32 = UnsafePointer(bytes).withMemoryRebound(to: Int32.self, capacity: 1) {
+            $0.pointee
+        }
+        print("s32: \(s32)") // u16: 513
+        return s32
+        
+        /*
+        var number1: UInt16 = result[0] as! Int16
+        var number2: UInt16 = result[1] as Int16
+        let number: UInt32 = UInt32(number1) << 16 | UInt32(number2)
+        
+        number1 = UInt16(number >> 16)
+        number2 = UInt16(number & 0xFFFF)*/
     }
     
     func refresh(sender: AnyObject){

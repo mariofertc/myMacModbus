@@ -27,7 +27,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
     var mConnect: Bool = false
     var receive: [String] = []
     //var nsReceive: NSArray = []
-    var nsReceive: [AnyObject] = []
+    //var nsReceive: [AnyObject] = []
     
     var read_tries = 0
     //var mod: NSObject;
@@ -91,9 +91,10 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
                 
                 
                 if(self.mConnect){
-                    self.swiftLibModbus.readRegistersFrom(startAddress: 1, count: 2,
+                    //Start address 63
+                    self.swiftLibModbus.readRegistersFrom(startAddress: 63, count: 2,
                         success: { (array: [AnyObject]) -> Void in
-                            self.nsReceive = array
+                            //self.nsReceive = array
                             self.appDelegate.result = array
                             //Do something with the returned data (NSArray of NSNumber)..
                             print("success: \(array)")
