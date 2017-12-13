@@ -30,7 +30,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         self.view.addSubview(self.pageViewController!.view)
 
         // Set the page view controller's bounds using an inset rect so that self's view is visible around the edges of the pages.
-        var pageViewRect = self.view.bounds
+        let pageViewRect = self.view.bounds
         if UIDevice.current.userInterfaceIdiom == .pad {
             //pageViewRect = CGRectInset(pageViewRect, 40.0, 40.0)
             pageViewRect.insetBy(dx: 40,dy: 40)
@@ -60,9 +60,9 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
     // MARK: - UIPageViewController delegate methods
 
-    func pageViewController(pageViewController: UIPageViewController, spineLocationForInterfaceOrientation orientation: UIInterfaceOrientation) -> UIPageViewControllerSpineLocation {
+    func pageViewController(_ pageViewController: UIPageViewController, spineLocationFor orientation: UIInterfaceOrientation) -> UIPageViewControllerSpineLocation {
         if (orientation == .portrait) || (orientation == .portraitUpsideDown) || (UIDevice.current.userInterfaceIdiom == .phone) {
-            // In portrait orientation or on iPhone: Set the spine position to "min" and the page view controller's view controllers array to contain just one view controller. Setting the spine position to 'UIPageViewControllerSpineLocationMid' in landscape orientation sets the doubleSided property to true, so set it to false here.
+            // In portrait orientation or on iPhone: Set the spine position to "min" and the page view controller's view controllers array to contain just one view controller. Setting the spine position to                                                                                 'UIPageViewControllerSpineLocationMid' in landscape orientation sets the doubleSided property to true, so set it to false here.
             let currentViewController = self.pageViewController!.viewControllers![0]
             let viewControllers = [currentViewController]
             self.pageViewController!.setViewControllers(viewControllers, direction: .forward, animated: true, completion: {done in })

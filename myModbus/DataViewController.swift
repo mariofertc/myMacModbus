@@ -105,7 +105,7 @@ class DataViewController: UIViewController {
     }
     
     func get32Bytes(result: [AnyObject]) -> Int32{
-        var response = 0
+        //var response = 0
         //let bytes:[UInt16] = result as! [UInt16]
         /*let data = NSData(bytes: result, length: 2)
         print("data: \(data)") // data: <0102>
