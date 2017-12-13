@@ -83,9 +83,9 @@ class DataViewController: UIViewController {
 */
     }
     
-    func tappedButton(sender: UIButton!)
+    //@objc func tappedButton(sender: UIButton!)
+    @objc func tappedButton(sender: UIButton!)
     {
-        
         defaults.setValue(self.txtIp.text, forKey: "ip")
         defaults.setValue(self.txtPort.text, forKey: "port")
         
@@ -93,7 +93,8 @@ class DataViewController: UIViewController {
         print("tapped button")
     }
     
-    func refreshEvery1Secs(){
+    //@objc func refreshEvery1Secs(){
+    @objc func refreshEvery1Secs(){
         if(appDelegate.result.count>0){
             //print("actualizando valor")
             let res = get32Bytes(result: appDelegate.result)

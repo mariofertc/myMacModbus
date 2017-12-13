@@ -290,7 +290,8 @@ class SwiftLibModbus: NSObject {
     private func buildNSError(errno: Int32, errorString: NSString) -> NSError {
         let details = NSMutableDictionary()
         details.setValue(errorString, forKey: NSLocalizedDescriptionKey)
-        let error = NSError(domain: "Modbus", code: Int(errno), userInfo: details as [NSObject : AnyObject])
+        //let error = NSError(domain: "Modbus", code: Int(errno), userInfo: (details as [NSObject : AnyObject]))
+        let error = NSError(domain: "Modbus", code: Int(errno), userInfo: (details as! [String : Any]))
         return error
     }
     
