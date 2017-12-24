@@ -37,12 +37,31 @@ class SwiftLibModbus: NSObject {
     func setupTCP(ipAddress: NSString, port: Int32, device: Int32) -> Bool {
         self.ipAddress = ipAddress
         //mb = modbus_new_tcp(ipAddress.cStringUsingEncoding(NSASCIIStringEncoding) , port)
-        mb = modbus_new_tcp(ipAddress.cString(using: String.Encoding.ascii.rawValue) , port)
+        let ip : NSString = getHost(url: ipAddress as String) as NSString
+        //print(getHost(url: "186.4.176.169"))
+        //mb = modbus_new_tcp(ipAddress.cString(using: String.Encoding.ascii.rawValue) , port)
+        mb = modbus_new_tcp(ip.cString(using: String.Encoding.ascii.rawValue) , port)
         var modbusErrorRecoveryMode = modbus_error_recovery_mode(0)
         modbusErrorRecoveryMode.rawValue = MODBUS_ERROR_RECOVERY_LINK.rawValue | MODBUS_ERROR_RECOVERY_PROTOCOL.rawValue
         modbus_set_error_recovery(mb!, modbusErrorRecoveryMode)
         modbus_set_slave(mb!, device)
         return true
+    }
+    
+    func getHost(url: String) -> String{
+        let host = CFHostCreateWithName(nil,url as CFString).takeRetainedValue()
+        CFHostStartInfoResolution(host, .addresses, nil)
+        var success: DarwinBoolean = false
+        if let addresses = CFHostGetAddressing(host, &success)?.takeUnretainedValue() as NSArray?,
+            let theAddress = addresses.firstObject as? NSData {
+            var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
+            if getnameinfo(theAddress.bytes.assumingMemoryBound(to: sockaddr.self), socklen_t(theAddress.length),
+                           &hostname, socklen_t(hostname.count), nil, 0, NI_NUMERICHOST) == 0 {
+                let numAddress = String(cString: hostname)
+                return numAddress
+            }
+        }
+        return url
     }
     
     func connectWithError( error: NSError) -> Bool {
