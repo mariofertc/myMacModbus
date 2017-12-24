@@ -35,20 +35,50 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
     var swiftLibModbus: SwiftLibModbus
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
-    var ipDefault:String = "192.168.1.6"
-    var portDefault:Int = 502
+    var ipDefault:NSString = "192.168.1.6"
+    var portDefault:Int32 = 502
+    var registro:Int32 = 1
+    var esReiniciar:Bool = false
+    var maximo:Float = 2000
+    var minimo:Float = 0
     let defaults = UserDefaults.standard
     
     override init() {
+         //defaults.setValue(maximo, forKey: "maximo")
         //let ip: String = NSUserDefaults.standardUserDefaults().stringForKey("ip")!
-        
-        //var ip:String = ""
-        if (defaults.object(forKey: "ip") == nil) {
+        if (defaults.object(forKey: "ip") == nil){
             defaults.setValue(ipDefault, forKey: "ip")
+        }else{
+             self.ipDefault = defaults.string(forKey: "ip")! as NSString
+        }
+        if (defaults.object(forKey: "port") == nil){
             defaults.setValue(portDefault, forKey: "port")
-            print("Primera asignacion de configuracion")
+        }else{
+            self.portDefault = Int32(defaults.integer(forKey: "port"))
+        }
+        if (defaults.object(forKey: "registro") == nil){
+            defaults.setValue(registro, forKey: "registro")
+        }else{
+            self.registro = Int32(defaults.integer(forKey: "registro"))
+        }
+        if (defaults.object(forKey: "maximo") == nil){
+            defaults.setValue(maximo, forKey: "maximo")
+        }else{
+             self.maximo = defaults.float(forKey: "maximo")
+        }
+        if (defaults.object(forKey: "minimo") == nil){
+            defaults.setValue(minimo, forKey: "minimo")
+        }else{
+            self.minimo = defaults.float(forKey: "minimo")
+        }
+        if (defaults.object(forKey: "esReiniciar") == nil){
+            defaults.setValue(minimo, forKey: "esReiniciar")
+        }else{
+            self.esReiniciar = Bool(defaults.bool(forKey: "esReiniciar"))
         }
         
+        print("Asignacion de configuracion")
+    
         
  //       if(defaults.)
         //var ip:String = defaults.stringForKey("ip")!
@@ -60,7 +90,8 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         //}
         //self.swiftLibModbus = SwiftLibModbus(ipAddress: "192.168.1.6", port: 502, device: 1)
         
-        self.swiftLibModbus = SwiftLibModbus(ipAddress: defaults.string(forKey: "ip")! as NSString, port: Int32(defaults.integer(forKey: "port")), device: 1)
+        //self.swiftLibModbus = SwiftLibModbus(ipAddress: defaults.string(forKey: "ip")! as NSString, port: Int32(defaults.integer(forKey: "port")), device: 1)
+        self.swiftLibModbus = SwiftLibModbus(ipAddress: self.ipDefault, port: self.portDefault, device: 1)
         super.init()
         // Create the data model.
         //let dateFormatter = NSDateFormatter()
@@ -82,23 +113,24 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
             // Your delayed function here to be run in the foreground
             while(1==1){
                 if(self.read_tries>2){
-                    self.disconnect()
-                    sleep(4)
-                    self.connect()
-                    sleep(4)
-                    self.read_tries = 0
+                    self.initConnectionProcess()
                 }
-                
-                
                 if(self.mConnect){
                     //Start address 63
-                    self.swiftLibModbus.readRegistersFrom(startAddress: 63, count: 2,
+                    //self.swiftLibModbus.readRegistersFrom(startAddress: 63, count: 2,
+                    self.swiftLibModbus.readRegistersFrom(startAddress: Int32(self.defaults.integer(forKey: "registro")), count: 2,
                         success: { (array: [AnyObject]) -> Void in
                             //self.nsReceive = array
                             self.appDelegate.result = array
                             //Do something with the returned data (NSArray of NSNumber)..
                             print("success: \(array)")
                             self.read_tries = 0
+                            /*print(Bool(self.defaults.bool(forKey: "esReiniciar")))
+                            if(self.defaults.bool(forKey: "esReiniciar")){
+                                self.defaults.setValue(false, forKey: "esReiniciar")
+                                self.initConnectionProcess()
+                                
+                            }*/
                         },
                         failure:  { (error: NSError) -> Void in
                             //Handle error
@@ -119,6 +151,15 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
         })
         
     }
+    
+    func initConnectionProcess(){
+        self.disconnect()
+        sleep(4)
+        self.connect()
+        sleep(4)
+        self.read_tries = 0
+    }
+    
     func connect(){
         self.swiftLibModbus.disconnect()
         //sleep(1)

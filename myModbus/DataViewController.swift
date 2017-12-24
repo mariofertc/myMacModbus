@@ -27,27 +27,98 @@ class DataViewController: UIViewController {
 
     @IBOutlet weak var uivAjustes: UIView!
     @IBOutlet weak var txtPort: UITextField!
+    @IBOutlet weak var txtRegistro: UITextField!
+    @IBOutlet weak var txtMaximo: UITextField!
+    @IBOutlet weak var txtMinimo: UITextField!
 
     let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
-
-        
         //timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.getTimeOfDate), userInfo: nil, repeats: true)
+        initialize_graph()
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector:#selector(DataViewController.refreshEvery1Secs), userInfo: nil, repeats: true)
+        //btnGuardar.targetForAction(Selector("tappedButton"), withSender: self)
+        //appDelegate.Check="Modified"
         
+        //btnGuardar.
         
-        gvMedidor.style = WMGaugeViewStyleFlatThin()
+        btnGuardar.addTarget(self, action: #selector(btnGuardarAction), for: .touchUpInside)
+    }
+    
+    //@objc func tappedButton(sender: UIButton!)
+    @objc func btnGuardarAction(sender: UIButton!)
+    {
+        defaults.setValue(self.txtIp.text, forKey: "ip")
+        defaults.setValue(self.txtPort.text, forKey: "port")
+        defaults.setValue(self.txtRegistro.text, forKey: "registro")
+        defaults.setValue(self.txtMaximo.text, forKey: "maximo")
+        defaults.setValue(self.txtMinimo.text, forKey: "minimo")
+        defaults.setValue(true, forKey: "esReiniciar")
+        initialize_graph()
+        /*gvMedidor.maxValue = 2000.0;
+        gvMedidor.minValue = 10;*/
+        
+        //appDelegate.setValue("192.168.1.7", forKey: "ip")
+        print("tapped button")
+    }
+    
+    //@objc func refreshEvery1Secs(){
+    @objc func refreshEvery1Secs(){
+        if(appDelegate.result.count>0){
+            //print("actualizando valor")
+            let res = get32BytesFloat(result: appDelegate.result)
+            self.txtPrueba.text = String(describing: res) + " KVA"
+            //gvMedidor.value = Float(appDelegate.result[0] as! NSNumber)
+            gvMedidor.value = Float(res)
+        }else{
+            print("nodata")
+        }
+        // refresh code
+    }
+    
+    func get32BytesFloat(result: [AnyObject]) -> Float{
+        let bytesResult: [UInt16] = result as! [UInt16]
+        //17143
+        var v16 : UInt16 = bytesResult[0]
+        let b1 = v16>>8&0x00ff
+        let b2 = v16&0x0ff
+        //41148
+        v16 = bytesResult[1]
+        let b3 = v16>>8&0x00ff
+        let b4 = v16&0x0ff
+        //Result 123.814
+        let cllBytes: [UInt8] = [UInt8(b1),UInt8(b2),UInt8(b3),UInt8(b4)]
+        let data_res = Data(cllBytes)
+        return Float(bitPattern:UInt32(bigEndian: data_res.withUnsafeBytes{$0.pointee}))
+    }
+    
+    func pad(string : String, toSize: Int32) -> String {
+        var padded = string
+        for _ in 0..<(UInt32(toSize) - UInt32(string.count)) {
+            padded = "0" + padded
+        }
+        return padded
+    }
+    
+    func initialize_graph(){
+        //gvMedidor.style = WMGaugeViewStyleFlatThin()
+        gvMedidor.style = WMGaugeViewStyle3D()
         //WMGaugeViewStyle3D)
         //WMGaugeViewStyleFlatThin
-        gvMedidor.maxValue = 2000.0;
+        
+        let maximo = defaults.float(forKey: "maximo")
+        gvMedidor.maxValue = maximo;
+        gvMedidor.minValue = defaults.float(forKey: "minimo");
+        //print(defaults.float(forKey: "maximo"))
+        //gvMedidor.maxValue = 2000;
         gvMedidor.showRangeLabels = true;
-        gvMedidor.rangeValues = [500, 1000, 1500, 2000.0];
-        gvMedidor.rangeColors = [ UIColor.white,UIColor.green, UIColor.orange,UIColor.red    ];
-        gvMedidor.rangeLabels = [ "VERY LOW",          "LOW",             "OK",              "OVER FILL"        ];
+        
+        //gvMedidor.rangeValues = [500, 1000, 1500, 2000.0];
+        gvMedidor.rangeValues = [maximo*0.25, maximo*0.5, maximo*0.75, maximo];
+        gvMedidor.rangeColors = [UIColor.white,UIColor.green, UIColor.orange,UIColor.red];
+        gvMedidor.rangeLabels = ["Muy Bajo", "Bajo", "Alto", "Muy Alto"];
         gvMedidor.scaleDivisions = 10;
         gvMedidor.scaleSubdivisions = 5;
         gvMedidor.scaleStartAngle = 30;
@@ -60,78 +131,6 @@ class DataViewController: UIViewController {
         gvMedidor.rangeLabelsWidth = 0.04;
         gvMedidor.rangeLabelsFont = UIFont.init(name: "Helvetica", size: 0.04)
         gvMedidor.value = 0;
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector:#selector(DataViewController.refreshEvery1Secs), userInfo: nil, repeats: true)
-        //btnGuardar.targetForAction(Selector("tappedButton"), withSender: self)
-        //appDelegate.Check="Modified"
-        
-        //btnGuardar.
-        
-        btnGuardar.addTarget(self, action: #selector(tappedButton), for: .touchUpInside)
-        
-        
-       /* defaults.set
-        defaults.set
-        defaults.set(25, forKey: "Age")
-        defaults.set(true, forKey: "UseTouchID")
-        defaults.set(CGFloat.pi, forKey: "Pi")
-        
-        
-        defaults.set("Paul Hudson", forKey: "Name")
-        defaults.set(Date(), forKey: "LastRun")
-        
-        let elmer: Int = NSUserDefaults.standardUserDefaults().integerForKey("elmer")
-*/
-    }
-    
-    //@objc func tappedButton(sender: UIButton!)
-    @objc func tappedButton(sender: UIButton!)
-    {
-        defaults.setValue(self.txtIp.text, forKey: "ip")
-        defaults.setValue(self.txtPort.text, forKey: "port")
-        
-        //appDelegate.setValue("192.168.1.7", forKey: "ip")
-        print("tapped button")
-    }
-    
-    //@objc func refreshEvery1Secs(){
-    @objc func refreshEvery1Secs(){
-        if(appDelegate.result.count>0){
-            //print("actualizando valor")
-            let res = get32Bytes(result: appDelegate.result)
-            self.txtPrueba.text = String(describing: res)
-            //gvMedidor.value = Float(appDelegate.result[0] as! NSNumber)
-            gvMedidor.value = Float(res)
-        }
-        // refresh code
-    }
-    
-    func get32Bytes(result: [AnyObject]) -> Int32{
-        //var response = 0
-        //let bytes:[UInt16] = result as! [UInt16]
-        /*let data = NSData(bytes: result, length: 2)
-        print("data: \(data)") // data: <0102>
-        data.getBytes(&response, length: MemoryLayout<NSInteger>.size)
-        return response*/
-        
-        let bytes: [Int16] = result as! [Int16]
-        let s32 = UnsafePointer(bytes).withMemoryRebound(to: Int32.self, capacity: 1) {
-            $0.pointee
-        }
-        print("s32: \(s32)") // u16: 513
-        return s32
-        
-        /*
-        var number1: UInt16 = result[0] as! Int16
-        var number2: UInt16 = result[1] as Int16
-        let number: UInt32 = UInt32(number1) << 16 | UInt32(number2)
-        
-        number1 = UInt16(number >> 16)
-        number2 = UInt16(number & 0xFFFF)*/
-    }
-    
-    func refresh(sender: AnyObject){
-        
-        refreshEvery1Secs() // calls when ever button is pressed
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -152,10 +151,16 @@ class DataViewController: UIViewController {
             //uivAjustes.hidden = true
             self.gvMedidor.isHidden = false
             self.uivAjustes.isHidden = true
+            self.btnGuardar.isHidden = true
         }else{
             self.uivAjustes.isHidden = false
             self.txtIp.text=String(defaults.string(forKey: "ip")!)
             self.txtPort.text=String(defaults.integer(forKey: "port"))
+            //print(defaults.string(forKey: "registro"))
+            self.txtRegistro.text=String(defaults.integer(forKey: "registro"))
+            self.txtMaximo.text=String(defaults.integer(forKey: "maximo"))
+            self.txtMinimo.text=String(defaults.integer(forKey: "minimo"))
+            self.btnGuardar.isHidden = false
         }
         //let defaults = NSUserDefaults.standardUserDefaults()
         //self.gvMedidor.isHidden = true
