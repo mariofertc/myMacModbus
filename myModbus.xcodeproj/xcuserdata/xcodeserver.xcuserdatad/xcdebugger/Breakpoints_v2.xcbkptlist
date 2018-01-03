@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "myModbus/DataViewController.swift"
+            timestampString = "536647685.755471"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "variable initialization expression of myModbus.DataViewController.defaults : __ObjC.UserDefaults"
+                  moduleName = "myModbus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xcodeserver/Documents/myMacModbus/myModbus/DataViewController.swift"
+                  timestampString = "536643879.880019"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "myModbus.DataViewController.defaults.getter : __ObjC.UserDefaults"
+                  moduleName = "myModbus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xcodeserver/Documents/myMacModbus/myModbus/DataViewController.swift"
+                  timestampString = "536643879.891529"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "109">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "myModbus.DataViewController.init(nibName: Swift.Optional&lt;Swift.String&gt;, bundle: Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; myModbus.DataViewController"
+                  moduleName = "myModbus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xcodeserver/Documents/myMacModbus/myModbus/DataViewController.swift"
+                  timestampString = "536643879.896472"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "2102">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "myModbus.DataViewController.init(coder: __ObjC.NSCoder) -&gt; Swift.Optional&lt;myModbus.DataViewController&gt;"
+                  moduleName = "myModbus"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/xcodeserver/Documents/myMacModbus/myModbus/DataViewController.swift"
+                  timestampString = "536643879.904142"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "2012">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

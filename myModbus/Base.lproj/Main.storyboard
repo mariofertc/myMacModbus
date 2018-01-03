@@ -126,6 +126,21 @@
                                                 <edgeInsets key="layoutMargins" top="8" left="11" bottom="8" right="8"/>
                                                 <state key="normal" title="Guardar"/>
                                             </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bits" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r8j-Pt-OV0">
+                                                <rect key="frame" x="5" y="133" width="29" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="ml1-M5-kmU">
+                                                <rect key="frame" x="122" y="130" width="105" height="29"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <segments>
+                                                    <segment title="16"/>
+                                                    <segment title="32"/>
+                                                </segments>
+                                            </segmentedControl>
                                         </subviews>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
@@ -155,6 +170,24 @@
                                             </view>
                                         </subviews>
                                     </stackView>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IBJ-vK-Aw1">
+                                        <rect key="frame" x="13" y="514" width="314" height="80"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="apagado" highlightedImage="encendido" translatesAutoresizingMaskIntoConstraints="NO" id="QMH-uk-3aU" userLabel="stateConnection">
+                                                <rect key="frame" x="262" y="30" width="26" height="28"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <accessibility key="accessibilityConfiguration" label="imgState">
+                                                    <bool key="isElement" value="YES"/>
+                                                </accessibility>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="gentec150" highlightedImage="gentec150" translatesAutoresizingMaskIntoConstraints="NO" id="0LY-Te-oSS">
+                                                <rect key="frame" x="8" y="8" width="106" height="62"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.3333333432674408" green="0.3333333432674408" blue="0.3333333432674408" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
@@ -180,6 +213,8 @@
                         <outlet property="btnGuardar" destination="g9w-C1-8Gf" id="K2i-Z6-rUW"/>
                         <outlet property="dataLabel" destination="cF2-Le-7mQ" id="g8e-2b-Wh0"/>
                         <outlet property="gvMedidor" destination="Wea-dg-iDh" id="UiW-8A-vtx"/>
+                        <outlet property="imgState" destination="QMH-uk-3aU" id="OV2-2t-hJE"/>
+                        <outlet property="segBits" destination="ml1-M5-kmU" id="5QV-w6-3LJ"/>
                         <outlet property="txtIp" destination="e6P-Sh-9R0" id="0qK-13-6YH"/>
                         <outlet property="txtMaximo" destination="yb5-iz-FvP" id="Cv3-mI-iRO"/>
                         <outlet property="txtMinimo" destination="m1f-G6-MuA" id="K1R-WE-3mQ"/>
@@ -194,4 +229,9 @@
             <point key="canvasLocation" x="596" y="-243.32833583208398"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="apagado" width="25" height="25"/>
+        <image name="encendido" width="25" height="25"/>
+        <image name="gentec150" width="75" height="45"/>
+    </resources>
 </document>

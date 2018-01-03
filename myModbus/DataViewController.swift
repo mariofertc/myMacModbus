@@ -19,18 +19,13 @@ class DataViewController: UIViewController {
     @IBOutlet weak var txtIp: UITextField!
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     @IBOutlet weak var btnGuardar: UIButton!
-    @IBAction func txtIp(sender: AnyObject) {
-        //let defaults = NSUserDefaults.standardUserDefaults()
-        //defaults.setValue(sender.textLabel, forKey: "ip")
-        print("Ip Cambiada")
-    }
-
     @IBOutlet weak var uivAjustes: UIView!
     @IBOutlet weak var txtPort: UITextField!
     @IBOutlet weak var txtRegistro: UITextField!
     @IBOutlet weak var txtMaximo: UITextField!
     @IBOutlet weak var txtMinimo: UITextField!
-
+    @IBOutlet weak var imgState: UIImageView!
+    @IBOutlet weak var segBits: UISegmentedControl!
     let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
@@ -56,6 +51,8 @@ class DataViewController: UIViewController {
         defaults.setValue(self.txtMaximo.text, forKey: "maximo")
         defaults.setValue(self.txtMinimo.text, forKey: "minimo")
         defaults.setValue(true, forKey: "esReiniciar")
+        defaults.setValue(self.segBits.selectedSegmentIndex, forKey: "bits")
+        
         initialize_graph()
         /*gvMedidor.maxValue = 2000.0;
         gvMedidor.minValue = 10;*/
@@ -68,11 +65,20 @@ class DataViewController: UIViewController {
     @objc func refreshEvery1Secs(){
         if(appDelegate.result.count>0){
             //print("actualizando valor")
-            let res = get32BytesFloat(result: appDelegate.result)
+            var res:Float = 0
+            if(defaults.integer(forKey: "bits") == 1){
+                res = get32BytesFloat(result: appDelegate.result)
+            }else{
+                res = appDelegate.result[0] as! Float
+            }
             self.txtPrueba.text = String(describing: res) + " KVA"
             //gvMedidor.value = Float(appDelegate.result[0] as! NSNumber)
             gvMedidor.value = Float(res)
+            imgState.isHighlighted = true
         }else{
+            imgState.isHighlighted = false
+            self.txtPrueba.text = "0 KVA"
+            gvMedidor.value = 0
             print("nodata")
         }
         // refresh code
@@ -160,6 +166,7 @@ class DataViewController: UIViewController {
             self.txtRegistro.text=String(defaults.integer(forKey: "registro"))
             self.txtMaximo.text=String(defaults.integer(forKey: "maximo"))
             self.txtMinimo.text=String(defaults.integer(forKey: "minimo"))
+            self.segBits.selectedSegmentIndex = defaults.integer(forKey: "bits")
             self.btnGuardar.isHidden = false
         }
         //let defaults = NSUserDefaults.standardUserDefaults()

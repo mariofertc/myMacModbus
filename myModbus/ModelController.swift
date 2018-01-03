@@ -42,6 +42,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
     var maximo:Float = 2000
     var minimo:Float = 0
     let defaults = UserDefaults.standard
+    var bits:Int = 1
     
     override init() {
          //defaults.setValue(maximo, forKey: "maximo")
@@ -75,6 +76,11 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
             defaults.setValue(minimo, forKey: "esReiniciar")
         }else{
             self.esReiniciar = Bool(defaults.bool(forKey: "esReiniciar"))
+        }
+        if (defaults.object(forKey: "bits") == nil){
+            defaults.setValue(bits, forKey: "bits")
+        }else{
+            self.bits = defaults.integer(forKey: "bits")
         }
         
         print("Asignacion de configuracion")
@@ -135,6 +141,7 @@ class ModelController: NSObject, UIPageViewControllerDataSource {
                         failure:  { (error: NSError) -> Void in
                             //Handle error
                             self.read_tries=self.read_tries+1;
+                            self.appDelegate.result = []
                             //sleep(4000)
                             print("error")
                         })
