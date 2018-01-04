@@ -87,6 +87,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
 
         return .mid
     }
+   
     
     func windowShouldClose(sender: Any) {
         self.modelController.disconnect()
