@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8F8C22E11FCE0313008647EF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C22E01FCE0313008647EF /* AppDelegate.swift */; };
-		8F8C22E31FCE0313008647EF /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C22E21FCE0313008647EF /* RootViewController.swift */; };
 		8F8C22E51FCE0313008647EF /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C22E41FCE0313008647EF /* DataViewController.swift */; };
 		8F8C22E71FCE0313008647EF /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F8C22E61FCE0313008647EF /* ModelController.swift */; };
 		8F8C22EA1FCE0313008647EF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F8C22E81FCE0313008647EF /* Main.storyboard */; };
@@ -29,6 +28,7 @@
 		8FDB50D41FCFB8DE00640455 /* WMGaugeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB50CE1FCFB8DE00640455 /* WMGaugeView.m */; };
 		8FDB50D51FCFB8DE00640455 /* WMGaugeViewStyle3D.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB50D11FCFB8DE00640455 /* WMGaugeViewStyle3D.m */; };
 		8FDB50D61FCFB8DE00640455 /* WMGaugeViewStyleFlatThin.m in Sources */ = {isa = PBXBuildFile; fileRef = 8FDB50D31FCFB8DE00640455 /* WMGaugeViewStyleFlatThin.m */; };
+		D24A675B1FFEF2DE004879E9 /* ConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24A675A1FFEF2DE004879E9 /* ConfigViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,7 +51,6 @@
 /* Begin PBXFileReference section */
 		8F8C22DD1FCE0313008647EF /* myModbus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = myModbus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F8C22E01FCE0313008647EF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8F8C22E21FCE0313008647EF /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		8F8C22E41FCE0313008647EF /* DataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		8F8C22E61FCE0313008647EF /* ModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelController.swift; sourceTree = "<group>"; };
 		8F8C22E91FCE0313008647EF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -91,6 +90,7 @@
 		8FDB50D11FCFB8DE00640455 /* WMGaugeViewStyle3D.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMGaugeViewStyle3D.m; path = Vendor/WMGauge/WMGaugeViewStyle3D.m; sourceTree = "<group>"; };
 		8FDB50D21FCFB8DE00640455 /* WMGaugeViewStyleFlatThin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMGaugeViewStyleFlatThin.h; path = Vendor/WMGauge/WMGaugeViewStyleFlatThin.h; sourceTree = "<group>"; };
 		8FDB50D31FCFB8DE00640455 /* WMGaugeViewStyleFlatThin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMGaugeViewStyleFlatThin.m; path = Vendor/WMGauge/WMGaugeViewStyleFlatThin.m; sourceTree = "<group>"; };
+		D24A675A1FFEF2DE004879E9 /* ConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +159,7 @@
 				8F8C23231FCE20F4008647EF /* modbus-rtu.h */,
 				8F8C23241FCE20F4008647EF /* modbus-tcp-private.h */,
 				8F8C23251FCE20F4008647EF /* modbus-tcp.c */,
+				D24A675A1FFEF2DE004879E9 /* ConfigViewController.swift */,
 				8F8C23261FCE20F4008647EF /* modbus-tcp.h */,
 				8F8C23271FCE20F4008647EF /* modbus-version.h */,
 				8F8C23281FCE20F4008647EF /* modbus.c */,
@@ -168,7 +169,6 @@
 				8F8C23191FCE1FA6008647EF /* myModbus-Bridging-Header.h */,
 				8F8C23171FCE1F23008647EF /* SwiftLibModbus.swift */,
 				8F8C22E01FCE0313008647EF /* AppDelegate.swift */,
-				8F8C22E21FCE0313008647EF /* RootViewController.swift */,
 				8F8C22E41FCE0313008647EF /* DataViewController.swift */,
 				8F8C22E61FCE0313008647EF /* ModelController.swift */,
 				8F8C22E81FCE0313008647EF /* Main.storyboard */,
@@ -338,7 +338,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8F8C22E31FCE0313008647EF /* RootViewController.swift in Sources */,
 				8F8C23301FCE20F4008647EF /* modbus-rtu.c in Sources */,
 				8FDB50D41FCFB8DE00640455 /* WMGaugeView.m in Sources */,
 				8F8C22E71FCE0313008647EF /* ModelController.swift in Sources */,
@@ -350,6 +349,7 @@
 				8F8C232F1FCE20F4008647EF /* modbus-data.c in Sources */,
 				8F8C22E51FCE0313008647EF /* DataViewController.swift in Sources */,
 				8F8C22E11FCE0313008647EF /* AppDelegate.swift in Sources */,
+				D24A675B1FFEF2DE004879E9 /* ConfigViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

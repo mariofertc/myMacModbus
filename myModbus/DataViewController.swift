@@ -25,40 +25,48 @@ class DataViewController: UIViewController {
     @IBOutlet weak var txtMaximo: UITextField!
     @IBOutlet weak var txtMinimo: UITextField!
     @IBOutlet weak var imgState: UIImageView!
+    @IBOutlet weak var txtPrueba: UILabel!
     @IBOutlet weak var segBits: UISegmentedControl!
+   
+ 
     let defaults = UserDefaults.standard
     
+    var _modelController: ModelController? = nil
+    
+    @IBOutlet weak var btnLink: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         //timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(self.getTimeOfDate), userInfo: nil, repeats: true)
-        initialize_graph()
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector:#selector(DataViewController.refreshEvery1Secs), userInfo: nil, repeats: true)
-        //btnGuardar.targetForAction(Selector("tappedButton"), withSender: self)
-        //appDelegate.Check="Modified"
-        
-        //btnGuardar.
-        
-        btnGuardar.addTarget(self, action: #selector(btnGuardarAction), for: .touchUpInside)
+        //startView()
+        //Call modelController
+        if _modelController == nil {
+            _modelController = ModelController()
+        }
+        addNavLogo()
+        btnLink.addTarget(self, action: #selector(linkClicked), for: .touchUpInside)
     }
     
-    //@objc func tappedButton(sender: UIButton!)
-    @objc func btnGuardarAction(sender: UIButton!)
-    {
-        defaults.setValue(self.txtIp.text, forKey: "ip")
-        defaults.setValue(self.txtPort.text, forKey: "port")
-        defaults.setValue(self.txtRegistro.text, forKey: "registro")
-        defaults.setValue(self.txtMaximo.text, forKey: "maximo")
-        defaults.setValue(self.txtMinimo.text, forKey: "minimo")
-        defaults.setValue(true, forKey: "esReiniciar")
-        defaults.setValue(self.segBits.selectedSegmentIndex, forKey: "bits")
-        
+    @IBAction func didTapUrl(sender: AnyObject) {
+        UIApplication.shared.openURL(URL(string: "http://www.gentec.com.ec")!)
+        //UIApplication.shared.openURL(NSURL(string: "http://www.gentec.com.ec ")! as URL)
+    }
+    @IBAction func linkClicked(sender: AnyObject) {
+        openUrl(urlStr: "http://www.gentec.com.ec")
+    }
+    func startView(){
         initialize_graph()
-        /*gvMedidor.maxValue = 2000.0;
-        gvMedidor.minValue = 10;*/
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector:#selector(DataViewController.refreshEvery1Secs), userInfo: nil, repeats: true)
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        startView()
+    }
+    func openUrl(urlStr:String!) {
         
-        //appDelegate.setValue("192.168.1.7", forKey: "ip")
-        print("tapped button")
+        if let url = NSURL(string:urlStr) {
+            UIApplication.shared.openURL(url as URL)
+        }
+        
     }
     
     //@objc func refreshEvery1Secs(){
@@ -153,31 +161,49 @@ class DataViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.dataLabel.text = dataObject;
+        print(dataObject)
         if(dataObject == "Inicio"){
             //uivAjustes.hidden = true
             self.gvMedidor.isHidden = false
             self.uivAjustes.isHidden = true
             self.btnGuardar.isHidden = true
-        }else{
-            self.uivAjustes.isHidden = false
-            self.txtIp.text=String(defaults.string(forKey: "ip")!)
-            self.txtPort.text=String(defaults.integer(forKey: "port"))
-            //print(defaults.string(forKey: "registro"))
-            self.txtRegistro.text=String(defaults.integer(forKey: "registro"))
-            self.txtMaximo.text=String(defaults.integer(forKey: "maximo"))
-            self.txtMinimo.text=String(defaults.integer(forKey: "minimo"))
-            self.segBits.selectedSegmentIndex = defaults.integer(forKey: "bits")
-            self.btnGuardar.isHidden = false
         }
-        //let defaults = NSUserDefaults.standardUserDefaults()
-        //self.gvMedidor.isHidden = true
-        //self.modelCo
-        //self.txtPrueba.text = dataReceive
-//        self.txtPrueba.text = appDelegate.result
-        //self.dataLabel!.text = dataObject
     }
-    @IBOutlet weak var txtPrueba: UILabel!
-    //MARK: Properties
-    
+    func windowShouldClose(sender: Any) {
+        _modelController?.disconnect()
+        //NSApplication.shared().terminate(self)
+    }
+    func addNavLogo(){
+        let navController = navigationController!
+        let image = #imageLiteral(resourceName: "gentec150")
+        let imageView = UIImageView(image:image)
+        let bannerWidth = navController.navigationBar.frame.size.width
+        let bannerHeight = navController.navigationBar.frame.size.height
+        let bannerX = bannerWidth/2 - image.size.width/2
+        let bannerY = bannerHeight/2 - image.size.height/2
+        imageView.frame = CGRect(x: bannerX, y:bannerY, width: bannerWidth, height:bannerHeight)
+        imageView.contentMode = .scaleAspectFit
+        //navigationItem.titleView = imageView
+        //navigationItem.rightBarButtonItem = UIBarButtonItem(customView:imageView)
+        let btnConfig = UIButton(type: .system)
+        let adjustImage = #imageLiteral(resourceName: "config.io")
+        btnConfig.setImage(adjustImage.withRenderingMode(.automatic), for: .normal)
+        btnConfig.frame = CGRect(x:0, y:0, width: 34, height:34)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView:btnConfig)
+        navigationController?.navigationBar.backgroundColor = .white
+        navigationController?.navigationBar.isTranslucent = false
+        
+        btnConfig.addTarget(self, action: #selector(btnConfigAction), for: .touchUpInside)
+    }
+    @objc func btnConfigAction(sender: UIButton!)
+    {
+        /*let vc = ConfigViewController(nibName: "ConfigViewController",bundle: nil)
+        navigationController?.pushViewController(vc,animated: true)*/
+        /*let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ConfigViewController") as! ConfigViewController
+        self.present(loginVC, animated: true, completion: nil)*/
+        let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ConfigViewController") as! ConfigViewController
+        self.navigationController?.pushViewController(loginVC, animated: true)
+        print("tapped button")
+    }
 }
 
