@@ -23,10 +23,12 @@ class ConfigViewController: UIViewController {
     @IBOutlet weak var txtRegistro: UITextField!
     @IBOutlet weak var txtMaximo: UITextField!
     //@IBOutlet weak var txtMinimo: UITextField!
+    @IBOutlet weak var txtMaxGen: UITextField!
     @IBOutlet weak var imgState: UIImageView!
     @IBOutlet weak var segBits: UISegmentedControl!
     let defaults = UserDefaults.standard
     
+    @IBOutlet weak var txtOperacion: UITextField!
     @IBOutlet weak var btnLink: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +52,12 @@ class ConfigViewController: UIViewController {
         defaults.setValue(self.txtPort.text, forKey: "port")
         defaults.setValue(self.txtRegistro.text, forKey: "registro")
         defaults.setValue(self.txtMaximo.text, forKey: "maximo")
+        defaults.setValue(self.txtMaxGen.text, forKey: "maxGen")
+        var opera = (txtOperacion.text! as NSString).integerValue
+        if(opera == 0){
+            opera = 1
+        }
+        defaults.setValue(opera, forKey: "operacion")
         //defaults.setValue(self.txtMinimo.text, forKey: "minimo")
         defaults.setValue(true, forKey: "esReiniciar")
         defaults.setValue(self.segBits.selectedSegmentIndex, forKey: "bits")
@@ -74,12 +82,14 @@ class ConfigViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         //self.dataLabel.text = dataObject;
-             self.txtIp.text=String(defaults.string(forKey: "ip")!)
-             self.txtPort.text=String(defaults.integer(forKey: "port"))
-             self.txtRegistro.text=String(defaults.integer(forKey: "registro"))
-             self.txtMaximo.text=String(defaults.integer(forKey: "maximo"))
-             //self.txtMinimo.text=String(defaults.integer(forKey: "minimo"))
-             self.segBits.selectedSegmentIndex = defaults.integer(forKey: "bits")
+        self.txtIp.text=String(defaults.string(forKey: "ip")!)
+        self.txtPort.text=String(defaults.integer(forKey: "port"))
+        self.txtRegistro.text=String(defaults.integer(forKey: "registro"))
+        self.txtOperacion.text=String(defaults.integer(forKey: "operacion"))
+        self.txtMaximo.text=String(defaults.integer(forKey: "maximo"))
+        self.txtMaxGen.text=String(defaults.integer(forKey: "maxGen"))
+        //self.txtMinimo.text=String(defaults.integer(forKey: "minimo"))
+        self.segBits.selectedSegmentIndex = defaults.integer(forKey: "bits")
             //print(defaults.string(forKey: "registro"))
         
         //let defaults = NSUserDefaults.standardUserDefaults()

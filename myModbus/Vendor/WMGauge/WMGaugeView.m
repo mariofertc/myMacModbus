@@ -279,6 +279,7 @@
             CGContextStrokePath(context);
             
             // Draw label
+            //NSString *valueString = [NSString stringWithFormat:@"%0.0f",value];
             NSString *valueString = [NSString stringWithFormat:@"%0.0f",value];
             UIFont* font = _scaleFont ? _scaleFont : [UIFont fontWithName:@"Helvetica-Bold" size:0.05];
             NSDictionary* stringAttrs = @{ NSFontAttributeName : font, NSForegroundColorAttributeName : color };

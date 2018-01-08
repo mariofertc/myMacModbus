@@ -18,17 +18,10 @@ class DataViewController: UIViewController {
     var refresher: UIRefreshControl!
     @IBOutlet weak var txtIp: UITextField!
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    @IBOutlet weak var btnGuardar: UIButton!
-    @IBOutlet weak var uivAjustes: UIView!
-    @IBOutlet weak var txtPort: UITextField!
-    @IBOutlet weak var txtRegistro: UITextField!
-    @IBOutlet weak var txtMaximo: UITextField!
-    @IBOutlet weak var txtMinimo: UITextField!
     @IBOutlet weak var imgState: UIImageView!
     @IBOutlet weak var txtPrueba: UILabel!
-    @IBOutlet weak var segBits: UISegmentedControl!
-   
  
+    @IBOutlet weak var scTransGen: UISegmentedControl!
     let defaults = UserDefaults.standard
     
     var _modelController: ModelController? = nil
@@ -53,6 +46,10 @@ class DataViewController: UIViewController {
     }
     @IBAction func linkClicked(sender: AnyObject) {
         openUrl(urlStr: "http://www.gentec.com.ec")
+    }
+    @IBAction func didChangeTransGen(_ sender: Any) {
+        initialize_graph()
+        print("Ecy")
     }
     func startView(){
         initialize_graph()
@@ -79,7 +76,10 @@ class DataViewController: UIViewController {
             }else{
                 res = appDelegate.result[0] as! Float
             }
-            self.txtPrueba.text = String(describing: res) + " KVA"
+            res = res / defaults.float(forKey: "operacion")
+            
+            self.txtPrueba.text = String(format: "%.2f KVA", res)
+            //self.txtPrueba.text = String(describing: res) + " KVA"
             //gvMedidor.value = Float(appDelegate.result[0] as! NSNumber)
             gvMedidor.value = Float(res)
             imgState.isHighlighted = true
@@ -117,24 +117,34 @@ class DataViewController: UIViewController {
     }
     
     func initialize_graph(){
-        //gvMedidor.style = WMGaugeViewStyleFlatThin()
         gvMedidor.style = WMGaugeViewStyle3D()
         //WMGaugeViewStyle3D)
         //WMGaugeViewStyleFlatThin
-        
-        let maximo = defaults.float(forKey: "maximo")
+        var maximo:Float = 0
+        if(self.scTransGen.selectedSegmentIndex == 0){
+            maximo = defaults.float(forKey: "maximo")
+        }else{
+            maximo = defaults.float(forKey: "maxGen")
+        }
         gvMedidor.maxValue = maximo;
         gvMedidor.minValue = defaults.float(forKey: "minimo");
-        //print(defaults.float(forKey: "maximo"))
-        //gvMedidor.maxValue = 2000;
         gvMedidor.showRangeLabels = true;
         
         //gvMedidor.rangeValues = [500, 1000, 1500, 2000.0];
-        gvMedidor.rangeValues = [maximo*0.25, maximo*0.5, maximo*0.75, maximo];
-        gvMedidor.rangeColors = [UIColor.white,UIColor.green, UIColor.orange,UIColor.red];
-        gvMedidor.rangeLabels = ["Muy Bajo", "Bajo", "Alto", "Muy Alto"];
+        //gvMedidor.rangeValues = [maximo*0.25, maximo*0.5, maximo*0.75, maximo];
+        gvMedidor.rangeValues = [maximo*0.90,maximo];
+        //gvMedidor.rangeColors = [UIColor.white,UIColor.green, UIColor.orange,UIColor.red];
+        gvMedidor.rangeColors = [UIColor.lightGray, UIColor.red];
+        gvMedidor.rangeLabels = ["Normal", "Muy Alto"];
         gvMedidor.scaleDivisions = 10;
         gvMedidor.scaleSubdivisions = 5;
+        if(maximo<=10){
+            gvMedidor.scaleDivisions = CGFloat(maximo)
+            gvMedidor.scaleSubdivisions = 1;
+        }
+        if(maximo<50){
+            gvMedidor.scaleSubdivisions = 1;
+        }
         gvMedidor.scaleStartAngle = 30;
         gvMedidor.unitOfMeasurement = "KVA";
         gvMedidor.showUnitOfMeasurement = true;
@@ -143,7 +153,8 @@ class DataViewController: UIViewController {
         gvMedidor.scaleEndAngle = 280;
         gvMedidor.rangeLabelsFontColor = UIColor.black;
         gvMedidor.rangeLabelsWidth = 0.04;
-        gvMedidor.rangeLabelsFont = UIFont.init(name: "Helvetica", size: 0.04)
+        gvMedidor.rangeLabelsFont = UIFont.init(name: "Calibri", size: 0.04)
+        //gvMedidor.rangeLabelsFont = UIFont.init(name: "Helvetica", size: 0.04)
         gvMedidor.value = 0;
     }
     
@@ -162,12 +173,6 @@ class DataViewController: UIViewController {
         super.viewWillAppear(animated)
         self.dataLabel.text = dataObject;
         print(dataObject)
-        if(dataObject == "Inicio"){
-            //uivAjustes.hidden = true
-            self.gvMedidor.isHidden = false
-            self.uivAjustes.isHidden = true
-            self.btnGuardar.isHidden = true
-        }
     }
     func windowShouldClose(sender: Any) {
         _modelController?.disconnect()

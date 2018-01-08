@@ -25,17 +25,20 @@ class ModelController: NSObject{
     //var nsReceive: [AnyObject] = []
     
     var read_tries = 0
-    var swiftLibModbus: SwiftLibModbus
+    var swiftLibModbus: SwiftLibModbus!
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     var ipDefault:NSString = "192.168.1.6"
     var portDefault:Int32 = 502
     var registro:Int32 = 1
+    var operacion:Int32 = 1
     var esReiniciar:Bool = false
     var maximo:Float = 2000
+    var maxGen:Float = 2000
     var minimo:Float = 0
     let defaults = UserDefaults.standard
     var bits:Int = 1
+    var tipoGen:Bool = false
     
     override init() {
          //defaults.setValue(maximo, forKey: "maximo")
@@ -60,6 +63,11 @@ class ModelController: NSObject{
         }else{
              self.maximo = defaults.float(forKey: "maximo")
         }
+        if (defaults.object(forKey: "maxGen") == nil){
+            defaults.setValue(maxGen, forKey: "maxGen")
+        }else{
+            self.maxGen = defaults.float(forKey: "maxGen")
+        }
         if (defaults.object(forKey: "minimo") == nil){
             defaults.setValue(minimo, forKey: "minimo")
         }else{
@@ -75,10 +83,21 @@ class ModelController: NSObject{
         }else{
             self.bits = defaults.integer(forKey: "bits")
         }
+        if (defaults.object(forKey: "tipoGen") == nil){
+            defaults.setValue(tipoGen, forKey: "tipoGen")
+        }else{
+            self.tipoGen = Bool(defaults.bool(forKey: "tipoGen"))
+        }
+        if (defaults.object(forKey: "operacion") == nil){
+            defaults.setValue(operacion, forKey: "operacion")
+        }else{
+            self.operacion = Int32(defaults.integer(forKey: "operacion"))
+        }
         print("Asignacion de configuracion")
-        self.swiftLibModbus = SwiftLibModbus(ipAddress: self.ipDefault, port: self.portDefault, device: 1)
+        //self.swiftLibModbus = SwiftLibModbus(ipAddress: self.ipDefault, port: self.portDefault, device: 1)
         super.init()
-        
+        //self.connect()
+        //sleep(5)
         backgroundThread(delay: 3.0, background: {
             // Your delayed function here to be run in the foreground
             while(1==1){
@@ -129,7 +148,9 @@ class ModelController: NSObject{
     }
     
     func connect(){
-        self.swiftLibModbus.disconnect()
+        if(self.swiftLibModbus != nil){
+            self.swiftLibModbus.disconnect()
+        }
         self.swiftLibModbus = SwiftLibModbus(ipAddress: defaults.string(forKey: "ip")! as NSString, port: Int32(defaults.integer(forKey: "port")), device: 1)
         self.swiftLibModbus.connect(
             success: { () -> Void in

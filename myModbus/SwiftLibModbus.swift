@@ -38,6 +38,9 @@ class SwiftLibModbus: NSObject {
         self.ipAddress = ipAddress
         //mb = modbus_new_tcp(ipAddress.cStringUsingEncoding(NSASCIIStringEncoding) , port)
         let ip : NSString = getHost(url: ipAddress as String) as NSString
+        if (ip==""){
+            return false
+        }
         //print(getHost(url: "186.4.176.169"))
         //mb = modbus_new_tcp(ipAddress.cString(using: String.Encoding.ascii.rawValue) , port)
         mb = modbus_new_tcp(ip.cString(using: String.Encoding.ascii.rawValue) , port)
@@ -61,7 +64,8 @@ class SwiftLibModbus: NSObject {
                 return numAddress
             }
         }
-        return url
+        print("error get ip")
+        return ""
     }
     
     func connectWithError( error: NSError) -> Bool {
