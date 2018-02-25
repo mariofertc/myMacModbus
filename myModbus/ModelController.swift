@@ -149,9 +149,12 @@ class ModelController: NSObject{
     
     func connect(){
         if(self.swiftLibModbus != nil){
-            self.swiftLibModbus.disconnect()
+            //self.swiftLibModbus.disconnect()
+            self.disconnect()
+            self.swiftLibModbus = nil
         }
         self.swiftLibModbus = SwiftLibModbus(ipAddress: defaults.string(forKey: "ip")! as NSString, port: Int32(defaults.integer(forKey: "port")), device: 1)
+        
         self.swiftLibModbus.connect(
             success: { () -> Void in
                 print("exito")
@@ -166,7 +169,9 @@ class ModelController: NSObject{
     }
     func disconnect(){
         self.mConnect = false
-        self.swiftLibModbus.disconnect()
+        if self.swiftLibModbus.isConnect! {
+            self.swiftLibModbus.disconnect()
+        }
     }
 
     func backgroundThread(delay: Double = 0.0, background: (()->Void)? = nil, completion: (() -> Void)? = nil) {

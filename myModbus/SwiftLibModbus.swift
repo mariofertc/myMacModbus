@@ -41,9 +41,12 @@ class SwiftLibModbus: NSObject {
         if (ip==""){
             return false
         }
-        //print(getHost(url: "186.4.176.169"))
+        print("Conectandose a: " + (ip as String))
         //mb = modbus_new_tcp(ipAddress.cString(using: String.Encoding.ascii.rawValue) , port)
         mb = modbus_new_tcp(ip.cString(using: String.Encoding.ascii.rawValue) , port)
+        if (mb == nil){
+            return false
+        }
         var modbusErrorRecoveryMode = modbus_error_recovery_mode(0)
         modbusErrorRecoveryMode.rawValue = MODBUS_ERROR_RECOVERY_LINK.rawValue | MODBUS_ERROR_RECOVERY_PROTOCOL.rawValue
         modbus_set_error_recovery(mb!, modbusErrorRecoveryMode)
@@ -80,10 +83,17 @@ class SwiftLibModbus: NSObject {
 
     func connect(success: @escaping () -> Void, failure: @escaping (NSError) -> Void) {
         modbusQueue!.async() {
+            if self.mb == nil {
+                let error = self.buildNSError(errno: errno)
+                //dispatch_get_main_queue().async() {
+                DispatchQueue.main.async {
+                    failure(error)
+                }
+                return;
+            }
             let ret = modbus_connect(self.mb!)
             if ret == -1 {
                 let error = self.buildNSError(errno: errno)
-                
                 //dispatch_get_main_queue().async() {
                 DispatchQueue.main.async {
                     failure(error)
@@ -326,6 +336,8 @@ class SwiftLibModbus: NSObject {
 
     deinit {
 //        dispatch_release(modbusQueue);
-        modbus_free(mb!);
+        if(mb != nil){
+            modbus_free(mb!);
+        }
     }
 }

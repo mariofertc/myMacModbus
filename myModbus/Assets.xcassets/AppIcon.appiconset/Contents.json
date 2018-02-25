@@ -21,7 +21,7 @@
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "iphone-settings@3x-1.png",
+      "filename" : "iphone-settings@3x.png",
       "scale" : "3x"
     },
     {
@@ -105,7 +105,7 @@
     {
       "size" : "1024x1024",
       "idiom" : "ios-marketing",
-      "filename" : "mac_appicon-512@2x.png",
+      "filename" : "watch-marketing.png",
       "scale" : "1x"
     }
   ],
